@@ -1,5 +1,7 @@
-import mongoose, { Schema } from "mongoose";
-const ObjectId = Schema.Types;
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
+
 const CartSchema = new Schema(
   {
     user: {
@@ -25,4 +27,4 @@ const CartSchema = new Schema(
   },
 );
 
-export default mongoose.model("Cart", CartSchema);
+module.exports = mongoose.model("Cart", CartSchema);

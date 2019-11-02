@@ -1,6 +1,7 @@
 const express = require("express");
 const connectDB = require("./config/db");
 const indexRouter = require("./routes/index");
+const productRouter = require("./routes/productRouter");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 
@@ -16,7 +17,8 @@ dotenv.config();
 
 //Define Routes
 app.use("/", indexRouter);
+app.use("/products", productRouter);
 
 const { port } = require("./config/config");
 
-app.listen(() => console.log(`Server started on ${port}`));
+app.listen(port, () => console.log(`Server started on ${port}`));

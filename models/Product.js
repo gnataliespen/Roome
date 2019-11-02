@@ -1,5 +1,7 @@
-import mongoose, { Schema } from "mongoose";
-import shortid from "shortid";
+const mongoose = require("mongoose");
+const shortid = require("shortid");
+const { Schema } = mongoose;
+
 const ProductSchema = new Schema({
   name: {
     type: String,
@@ -24,4 +26,4 @@ const ProductSchema = new Schema({
   },
 });
 
-export default mongoose.model("Product", ProductSchema);
+module.exports = mongoose.model("Product", ProductSchema);
