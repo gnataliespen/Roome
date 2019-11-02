@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "server": "nodemon server",
+    "start": "node server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -16,15 +18,14 @@
     "js-cookie": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.7",
-    "next": "^9.0.2",
     "nookies": "^2.0.8",
     "nprogress": "^0.2.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-stripe-checkout": "^2.6.3",
-    "semantic-ui-react": "^0.87.3",
     "shortid": "^2.2.14",
     "stripe": "^7.5.0",
     "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0",
+    "nodemon": "^1.19.4"
   }
 }
