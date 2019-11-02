@@ -2,6 +2,7 @@ const express = require("express");
 const connectDB = require("./config/db");
 const indexRouter = require("./routes/index");
 const productRouter = require("./routes/productRouter");
+const authRouter = require("./routes/authRouter");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 
@@ -18,6 +19,7 @@ dotenv.config();
 //Define Routes
 app.use("/", indexRouter);
 app.use("/products", productRouter);
+app.use("/auth", authRouter);
 
 const { port } = require("./config/config");
 
