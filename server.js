@@ -5,6 +5,7 @@ const productRouter = require("./routes/productRouter");
 const authRouter = require("./routes/authRouter");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
+var cors = require("cors");
 
 const app = express();
 
@@ -15,6 +16,7 @@ connectDB();
 app.use(express.json({ extended: false }));
 app.use(cookieParser());
 dotenv.config();
+app.use(cors());
 
 //Define Routes
 app.use("/", indexRouter);

@@ -12,20 +12,20 @@ const Navbar = ({ location }) => {
   return (
     <Menu stackable fluid id="menu" inverted>
       <Container text>
-        <Link href="/">
+        <Link to="/">
           <Menu.Item active={isActive("/")} header>
             {/*add title/logo later*/}
             React ecomm
           </Menu.Item>
         </Link>
-        <Link href="/cart">
+        <Link to="/cart">
           <Menu.Item active={isActive("/cart")} header>
             <Icon name="cart" size="large" />
             Cart
           </Menu.Item>
         </Link>
         {user && (
-          <Link href="/create">
+          <Link to="/create">
             <Menu.Item active={isActive("/create")} header>
               <Icon name="add square" size="large" />
               Create
@@ -34,7 +34,7 @@ const Navbar = ({ location }) => {
         )}
         {user ? (
           <>
-            <Link href="/Account">
+            <Link to="/Account">
               <Menu.Item active={isActive("/account")} header>
                 <Icon name="user" size="large" />
                 Account
@@ -47,13 +47,13 @@ const Navbar = ({ location }) => {
           </>
         ) : (
           <>
-            <Link href="/login">
+            <Link to="/login">
               <Menu.Item active={isActive("/login")} header>
                 <Icon name="sign in" size="large" />
                 Log In
               </Menu.Item>
             </Link>
-            <Link href="/signup">
+            <Link to="/signup">
               <Menu.Item active={isActive("/signup")} header>
                 <Icon name="signup" size="large" />
                 Sign Up
