@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from "react";
 import { Header, Button, Modal } from "semantic-ui-react";
+import api from "../../util/apiConnection";
 
 const ProductAttributes = ({ description, _id }) => {
   const [modal, setModal] = useState(false);
 
   const handleDelete = async () => {
-    //const payload = { params: { _id } };
-    //await api.delete("/product", payload);
+    await api.delete(`/products/delete/${_id}`);
     //router.push("/");
   };
 
