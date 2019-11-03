@@ -3,7 +3,10 @@
   --menuBg: #334d68;
   --progressBar: #54d1db;
 }
-
+a {
+  text-decoration: none !important;
+  color: white;
+}
 body {
   background: var(--bodyBg);
 }

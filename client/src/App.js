@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Product from "./components/products/Product";
 import SignUp from "./components/auth/SignUp";
 import Login from "./components/auth/Login";
-import Cookies from "js-cookie";
+import Cart from "./components/cart/Cart";
 
 import "./css/style.css";
 
@@ -18,6 +18,8 @@ const App = () => {
         <Route exact path="/product/:id" component={Product} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/checkout" component={Cart} />
+
         {/* 
         
         <Route exact path="/checkout" component={Cart} />

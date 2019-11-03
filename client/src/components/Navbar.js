@@ -18,8 +18,8 @@ const Navbar = ({ location }) => {
             React ecomm
           </Menu.Item>
         </Link>
-        <Link to="/cart">
-          <Menu.Item active={isActive("/cart")} header>
+        <Link to="/checkout">
+          <Menu.Item active={isActive("/checkout")} header>
             <Icon name="cart" size="large" />
             Cart
           </Menu.Item>
