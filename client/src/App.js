@@ -6,6 +6,7 @@ import Product from "./components/products/Product";
 import SignUp from "./components/auth/SignUp";
 import Login from "./components/auth/Login";
 import Cart from "./components/cart/Cart";
+import Create from "./components/Create";
 
 import "./css/style.css";
 
@@ -19,12 +20,7 @@ const App = () => {
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/checkout" component={Cart} />
-
-        {/* 
-        
-        <Route exact path="/checkout" component={Cart} />
         <Route exact path="/create" component={Create} />
-  */}
       </Switch>
     </Router>
   );
