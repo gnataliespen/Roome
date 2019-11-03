@@ -1,9 +1,9 @@
 import React from "react";
-import { Menu, Container, Image, Icon } from "semantic-ui-react";
+import { Menu, Container, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 const Navbar = ({ location }) => {
-  const user = true;
+  const user = false;
   console.log(location);
   const isActive = route => {
     //return route === router.pathname;
