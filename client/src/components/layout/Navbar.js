@@ -1,12 +1,14 @@
 import React from "react";
 import { Menu, Container, Icon } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { logout } from "../../redux/actions/auth";
+const Navbar = ({ auth: { isAuth, loading }, logout }) => {
+  let location = useLocation();
 
-const Navbar = ({ location }) => {
-  const user = false;
-  console.log(location);
   const isActive = route => {
-    //return route === router.pathname;
+    return route === location.pathname;
   };
 
   return (
@@ -24,7 +26,7 @@ const Navbar = ({ location }) => {
             Cart
           </Menu.Item>
         </Link>
-        {user && (
+        {!loading && isAuth && (
           <Link to="/create">
             <Menu.Item active={isActive("/create")} header>
               <Icon name="add square" size="large" />
@@ -32,7 +34,7 @@ const Navbar = ({ location }) => {
             </Menu.Item>
           </Link>
         )}
-        {user ? (
+        {!loading && isAuth ? (
           <>
             <Link to="/Account">
               <Menu.Item active={isActive("/account")} header>
@@ -40,7 +42,7 @@ const Navbar = ({ location }) => {
                 Account
               </Menu.Item>
             </Link>
-            <Menu.Item header>
+            <Menu.Item header onClick={e => logout()}>
               <Icon name="sign out" size="large" />
               Log Out
             </Menu.Item>
@@ -65,5 +67,15 @@ const Navbar = ({ location }) => {
     </Menu>
   );
 };
+Navbar.propTypes = {
+  auth: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
+};
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
 
-export default Navbar;
+export default connect(
+  mapStateToProps,
+  { logout },
+)(Navbar);
