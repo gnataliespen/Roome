@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 import { logout } from "../../redux/actions/auth";
 
-const Navbar = ({ auth: { isAuth, loading }, logout }) => {
+const Navbar = ({ auth: { isAuth, loading, user }, logout }) => {
   let location = useLocation();
 
   const isActive = route => {
@@ -28,7 +28,7 @@ const Navbar = ({ auth: { isAuth, loading }, logout }) => {
             Cart
           </Menu.Item>
         </Link>
-        {!loading && isAuth && (
+        {user && user.role === "admin" && (
           <Link to="/create">
             <Menu.Item active={isActive("/create")} header>
               <Icon name="add square" size="large" />
