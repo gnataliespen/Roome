@@ -17,6 +17,8 @@ export default (state = initialState, action) => {
   switch (type) {
     case GET_PRODUCTS:
       return { ...state, loading: false, products: [...payload] };
+    case GET_PRODUCT:
+      return { ...state, loading: false, product: payload };
     case DELETE_PRODUCT:
       return { ...state, product: null, loading: false };
     default:
