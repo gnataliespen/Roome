@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from "react";
+import { connect } from "react-redux";
+import { setAlert } from "../../redux/actions/alert";
 import api from "../../util/apiConnection";
 import {
   Message,
@@ -11,15 +13,15 @@ import {
 import { Link } from "react-router-dom";
 import { handleLogin } from "../../util/auth";
 
-const INITIAL_USER = {
+const initialUser = {
   name: "",
   email: "",
   password: "",
   conPass: "",
 };
 
-const SignUp = () => {
-  const [user, setUser] = useState(INITIAL_USER);
+const SignUp = ({ setAlert }) => {
+  const [user, setUser] = useState(initialUser);
   const [loading, setLoading] = useState(false);
 
   const handleChange = e => {
@@ -35,10 +37,10 @@ const SignUp = () => {
         let res = await api.post("/auth/signup", { name, email, password });
         handleLogin(res.data);
       } catch (err) {
-        console.error(err);
+        setAlert("Failed to signup", "danger");
       }
     } else {
-      console.error("Passwords do not match");
+      setAlert("Passwords do not match", "danger");
     }
     setLoading(false);
   };
@@ -116,4 +118,7 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default connect(
+  null,
+  { setAlert },
+)(SignUp);

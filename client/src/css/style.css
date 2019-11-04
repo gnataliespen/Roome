@@ -14,6 +14,23 @@ body {
 #menu {
   background: var(--menuBg);
 }
+.alert {
+  padding: 0.8rem;
+  margin: 1rem 0;
+  opacity: 0.9;
+  background: #f4f4f4;
+  color: #333;
+}
+
+.alert-danger {
+  background: #dc3545;
+  color: #fff;
+}
+
+.alert-success {
+  background: #28a745;
+  color: #fff;
+}
 
 /* Overrides default styled accordion styles (too much bottom padding) */
 .ui.styled.accordion .content {

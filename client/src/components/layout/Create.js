@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from "react";
-import api from "../util/apiConnection";
+import { connect } from "react-redux";
+import api from "../../util/apiConnection";
 import axios from "axios";
+import { setAlert } from "../../redux/actions/alert";
 import {
   Form,
   Input,
@@ -12,15 +14,15 @@ import {
   Icon,
 } from "semantic-ui-react";
 
-const INITIAL_FORM = {
+const initialForm = {
   name: "",
   price: 0,
   media: "",
   description: "",
 };
 
-const Create = () => {
-  const [form, setForm] = useState(INITIAL_FORM);
+const Create = ({ setAlert }) => {
+  const [form, setForm] = useState(initialForm);
   const [preview, setPreview] = useState("");
   const [posted, setPosted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -39,13 +41,19 @@ const Create = () => {
     e.preventDefault();
     setLoading(true);
     let mediaUrl = await uploadImg();
-    const { name, price, description } = form;
-    const payload = { name, price, description, mediaUrl };
-    const res = await api.post("/products/create", payload);
+    try {
+      const { name, price, description } = form;
+      const payload = { name, price, description, mediaUrl };
+      const res = await api.post("/products/createe", payload);
+      console.log(res);
+    } catch (error) {
+      console.log(error.response.msg);
+      //setAlert(err.response.msg, "danger");
+    }
     setLoading(false);
     setPosted(true);
     msgTimer();
-    setForm(INITIAL_FORM);
+    setForm(initialForm);
     setPreview("");
   };
 
@@ -62,10 +70,12 @@ const Create = () => {
       const res = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, data);
       return res.data.url;
     } catch (err) {
-      if (err.response.data.error) {
-        console.log(err.response.data.error);
+      if (err.response) {
+        console.error(err.response.data.error);
+        //setAlert("There was an error uploading your image.", "danger");
       }
-      console.log(err);
+      console.error(err);
+      //setAlert("There was an error uploading your image.", "danger");
     }
   };
 
@@ -134,4 +144,7 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default connect(
+  null,
+  { setAlert },
+)(Create);

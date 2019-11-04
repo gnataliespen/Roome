@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ProductList from "./products/ProductList";
-import api from "../util/apiConnection";
+import ProductList from "../products/ProductList";
+import api from "../../util/apiConnection";
 const Home = () => {
   const [products, setProducts] = useState(false);
   useEffect(() => {

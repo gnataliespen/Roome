@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from "react";
+import { connect } from "react-redux";
+import { setAlert } from "../../redux/actions/alert";
 import api from "../../util/apiConnection";
 import {
   Message,
@@ -10,14 +12,15 @@ import {
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { handleLogin } from "../../util/auth";
+import PropTypes from "prop-types";
 
-const INITIAL_USER = {
+const initialUser = {
   email: "",
   password: "",
 };
 
-const Login = () => {
-  const [user, setUser] = useState(INITIAL_USER);
+const Login = ({ setAlert }) => {
+  const [user, setUser] = useState(initialUser);
   const [loading, setLoading] = useState(false);
 
   const handleChange = e => {
@@ -32,6 +35,7 @@ const Login = () => {
       handleLogin(res.data);
     } catch (err) {
       console.error(err);
+      setAlert("Login failed", "danger");
     }
     setLoading(false);
   };
@@ -75,5 +79,11 @@ const Login = () => {
     </Fragment>
   );
 };
+Login.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+};
 
-export default Login;
+export default connect(
+  null,
+  { setAlert },
+)(Login);
