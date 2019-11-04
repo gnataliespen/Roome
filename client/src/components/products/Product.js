@@ -9,8 +9,6 @@ const Product = ({ match }) => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        console.log(match.params.id);
-
         let res = await api.get(`/products/product/${match.params.id}`);
         setProduct({ ...res.data });
       } catch (err) {

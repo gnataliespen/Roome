@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
-import api from "../../util/apiConnection";
-import axios from "axios";
-import { setAlert } from "../../redux/actions/alert";
+import { uploadImg, createProduct } from "../../redux/actions/upload";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
+
 import {
   Form,
   Input,
@@ -21,7 +22,11 @@ const initialForm = {
   description: "",
 };
 
-const Create = ({ setAlert, history }) => {
+const Create = ({
+  createProduct,
+  uploadImg,
+  upload: { product, mediaUrl },
+}) => {
   const [form, setForm] = useState(initialForm);
   const [preview, setPreview] = useState("");
   const [posted, setPosted] = useState(false);
@@ -30,8 +35,8 @@ const Create = ({ setAlert, history }) => {
   const handleChange = e => {
     const { name, value, files } = e.target;
     if (name === "media") {
-      setForm({ ...form, media: files[0] });
       setPreview(window.URL.createObjectURL(files[0]));
+      getImgUrl(files[0]);
     } else {
       setForm({ ...form, [name]: value });
     }
@@ -40,44 +45,32 @@ const Create = ({ setAlert, history }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
-    let mediaUrl = await uploadImg();
-    try {
-      const { name, price, description } = form;
-      const payload = { name, price, description, mediaUrl };
-      const res = await api.post("/products/createe", payload);
-      console.log(res);
-      history.push("/");
-    } catch (err) {
-      ///////////
-    }
+    const { name, price, description } = form;
+    const payload = { name, price, description, mediaUrl };
+    await createProduct(payload);
     setLoading(false);
     setPosted(true);
     msgTimer();
-    setForm(initialForm);
-    setPreview("");
+    // setForm(initialForm);
+    //setPreview("");
   };
 
   const msgTimer = () => {
     setTimeout(() => setPosted(false), 3000);
   };
 
-  const uploadImg = async () => {
+  const getImgUrl = async file => {
+    setLoading(true);
     const data = new FormData();
-    data.append("file", form.media);
+    data.append("file", file);
     data.append("upload_preset", "ecomProject");
     data.append("cloud_name", "gnatscloud");
-    try {
-      const res = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, data);
-      return res.data.url;
-    } catch (err) {
-      if (err.response) {
-        console.error(err.response.data.error);
-        //setAlert("There was an error uploading your image.", "danger");
-      }
-      console.error(err);
-      //setAlert("There was an error uploading your image.", "danger");
-    }
+    await uploadImg(data);
+    setLoading(false);
   };
+  if (product) {
+    return <Redirect to={`/product/${product._id}`} />;
+  }
 
   return (
     <Fragment>
@@ -143,8 +136,17 @@ const Create = ({ setAlert, history }) => {
     </Fragment>
   );
 };
+Create.propTypes = {
+  uploadImg: PropTypes.func.isRequired,
+  createProduct: PropTypes.func.isRequired,
+  upload: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state => ({
+  upload: state.upload,
+});
 
 export default connect(
-  null,
-  { setAlert },
+  mapStateToProps,
+  { uploadImg, createProduct },
 )(Create);
