@@ -22,15 +22,15 @@ export const uploadImg = data => async dispatch => {
     });
     if (err.response) {
       let msg = err.response.data.error.message;
-      dispatch(setAlert(`CLOUDINARY ERROR: ${msg}`, "danger"));
+      dispatch(setAlert(`CLOUDINARY ERROR: ${msg}`, "red"));
     } else {
-      dispatch(setAlert("Failed to upload image", "danger"));
+      dispatch(setAlert("Failed to upload image", "red"));
     }
   }
 };
 export const createProduct = product => async dispatch => {
   try {
-    const res = await api.post("/products/createe", product);
+    const res = await api.post("/products/create", product);
     dispatch({
       type: CREATE_PRODUCT,
       payload: res.data.product,
@@ -39,9 +39,9 @@ export const createProduct = product => async dispatch => {
   } catch (err) {
     const error = err.response.data.msg;
     if (error) {
-      dispatch(setAlert(error, "danger"));
+      dispatch(setAlert(error, "red"));
     } else {
-      dispatch(setAlert("Failed to create product", "danger"));
+      dispatch(setAlert("Failed to create product", "red"));
     }
     dispatch({
       type: CREATE_FAILED,

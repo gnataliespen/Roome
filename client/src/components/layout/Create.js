@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { uploadImg, createProduct } from "../../redux/actions/upload";
+import { setAlert } from "../../redux/actions/alert";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 
@@ -10,7 +11,6 @@ import {
   TextArea,
   Button,
   Image,
-  Message,
   Header,
   Icon,
 } from "semantic-ui-react";
@@ -29,7 +29,6 @@ const Create = ({
 }) => {
   const [form, setForm] = useState(initialForm);
   const [preview, setPreview] = useState("");
-  const [posted, setPosted] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleChange = e => {
@@ -49,14 +48,6 @@ const Create = ({
     const payload = { name, price, description, mediaUrl };
     await createProduct(payload);
     setLoading(false);
-    setPosted(true);
-    msgTimer();
-    // setForm(initialForm);
-    //setPreview("");
-  };
-
-  const msgTimer = () => {
-    setTimeout(() => setPosted(false), 3000);
   };
 
   const getImgUrl = async file => {
@@ -77,13 +68,7 @@ const Create = ({
       <Header as="h2" block>
         <Icon name="add" color="orange" /> Create new product
       </Header>
-      <Form loading={loading} success={posted} onSubmit={e => handleSubmit(e)}>
-        <Message
-          success
-          icon="check"
-          header="Success"
-          content="Added new product"
-        />
+      <Form loading={loading} onSubmit={e => handleSubmit(e)}>
         <Form.Group widths="equal">
           <Form.Field
             control={Input}
@@ -139,6 +124,7 @@ const Create = ({
 Create.propTypes = {
   uploadImg: PropTypes.func.isRequired,
   createProduct: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
   upload: PropTypes.object.isRequired,
 };
 
@@ -148,5 +134,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { uploadImg, createProduct },
+  { uploadImg, createProduct, setAlert },
 )(Create);

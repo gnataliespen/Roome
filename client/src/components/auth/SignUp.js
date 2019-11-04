@@ -35,7 +35,7 @@ const SignUp = ({ setAlert, register, isAuth }) => {
     if (password === conPass) {
       register({ name, email, password });
     } else {
-      setAlert("Passwords do not match", "danger");
+      setAlert("Passwords do not match", "red");
     }
     setLoading(false);
   };
