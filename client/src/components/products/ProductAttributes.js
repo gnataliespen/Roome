@@ -1,13 +1,14 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Header, Button, Modal } from "semantic-ui-react";
-import api from "../../util/apiConnection";
+import { deleteProduct } from "../../redux/actions/product";
+import { connect } from "react-redux";
 
-const ProductAttributes = ({ description, _id }) => {
+const ProductAttributes = ({ description, _id, deleteProduct }) => {
   const [modal, setModal] = useState(false);
 
   const handleDelete = async () => {
-    await api.delete(`/products/delete/${_id}`);
-    //router.push("/");
+    await deleteProduct(_id);
+    setModal(false);
   };
 
   return (
@@ -40,4 +41,7 @@ const ProductAttributes = ({ description, _id }) => {
   );
 };
 
-export default ProductAttributes;
+export default connect(
+  null,
+  { deleteProduct },
+)(ProductAttributes);

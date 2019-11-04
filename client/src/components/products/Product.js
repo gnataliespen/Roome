@@ -2,6 +2,8 @@ import React, { Fragment, useEffect, useState } from "react";
 import ProductSummary from "./ProductSummary";
 import ProductAttributes from "./ProductAttributes.js";
 import api from "../../util/apiConnection";
+import { Redirect } from "react-router-dom";
+
 //make it where if a product is passed it shoes it if not it gets one ffrom db and later redux state
 const Product = ({ match }) => {
   const [product, setProduct] = useState(false);

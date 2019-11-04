@@ -12,3 +12,7 @@ export const CREATE_FAILED = "CREATE_FAILED";
 export const UPLOAD_IMG = "UPLOAD_IMG";
 export const UPLOAD_FAILED = "UPLOAD_FAILED";
 export const CLEAR_UPLOAD = "CLEAR_UPLOAD";
+export const GET_PRODUCTS = "GET_PRODUCTS";
+export const GET_PRODUCT = "GET_PRODUCT";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
