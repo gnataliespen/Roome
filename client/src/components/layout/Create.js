@@ -46,9 +46,8 @@ const Create = ({ setAlert }) => {
       const payload = { name, price, description, mediaUrl };
       const res = await api.post("/products/createe", payload);
       console.log(res);
-    } catch (error) {
-      console.log(error.response.msg);
-      //setAlert(err.response.msg, "danger");
+    } catch (err) {
+      ///////////
     }
     setLoading(false);
     setPosted(true);

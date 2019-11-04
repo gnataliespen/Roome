@@ -57,20 +57,12 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.verifyToken = async (req, res) => {
-  if (!("authorization" in req.headers)) {
-    return res.status(401).send("Not authorized");
-  }
+exports.getUser = async (req, res) => {
   try {
-    const { userId } = jwt.verify(req.headers.authorization, jwtSecret);
-    const user = await User.findOne({ _id: userId });
-    if (user) {
-      return res.status(200).json(user);
-    } else {
-      return res.status(401).json({ msg: "Not authorized" });
-    }
+    const user = await User.findById(req.user);
+    res.json(user);
   } catch (err) {
     console.error(err);
-    return res.status(401).json({ msg: "Not authorized" });
+    return res.status(402).json({ msg: "Invalid token" });
   }
 };

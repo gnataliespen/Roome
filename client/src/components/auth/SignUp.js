@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { setAlert } from "../../redux/actions/alert";
-import api from "../../util/apiConnection";
+import { register } from "../../redux/actions/auth";
+import PropTypes from "prop-types";
 import {
   Message,
   Segment,
@@ -11,7 +12,6 @@ import {
   Divider,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { handleLogin } from "../../util/auth";
 
 const initialUser = {
   name: "",
@@ -20,7 +20,7 @@ const initialUser = {
   conPass: "",
 };
 
-const SignUp = ({ setAlert }) => {
+const SignUp = ({ setAlert, register }) => {
   const [user, setUser] = useState(initialUser);
   const [loading, setLoading] = useState(false);
 
@@ -33,12 +33,7 @@ const SignUp = ({ setAlert }) => {
     setLoading(true);
     const { name, email, password, conPass } = user;
     if (password === conPass) {
-      try {
-        let res = await api.post("/auth/signup", { name, email, password });
-        handleLogin(res.data);
-      } catch (err) {
-        setAlert("Failed to signup", "danger");
-      }
+      register({ name, email, password });
     } else {
       setAlert("Passwords do not match", "danger");
     }
@@ -117,8 +112,12 @@ const SignUp = ({ setAlert }) => {
     </Fragment>
   );
 };
+SignUp.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+};
 
 export default connect(
   null,
-  { setAlert },
+  { setAlert, register },
 )(SignUp);
