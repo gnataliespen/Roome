@@ -1,5 +1,6 @@
 import { Card } from "semantic-ui-react";
 import React from "react";
+
 const ProductList = ({ products }) => {
   const mapProductsToItem = products => {
     return products.map(product => ({

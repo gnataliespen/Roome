@@ -1,18 +1,18 @@
 import React, { Fragment, useEffect } from "react";
-import ProductSummary from "./ProductSummary";
-import ProductAttributes from "./ProductAttributes.js";
-import api from "../../util/apiConnection";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { getProduct } from "../../redux/actions/product";
+import PropTypes from "prop-types";
+import { Loader } from "semantic-ui-react";
 
-//make it where if a product is passed it shoes it if not it gets one ffrom db and later redux state
+import { getProduct } from "../../redux/actions/product";
+import ProductSummary from "./ProductSummary";
+import ProductAttributes from "./ProductAttributes.js";
+
 const Product = ({ match, product: { product, loading }, getProduct }) => {
   useEffect(() => {
-    if (!product && loading) {
-      getProduct(match.params.id);
-    }
-  }, [product, getProduct]);
+    getProduct(match.params.id);
+  }, [getProduct, match.params.id]);
+
   if (product) {
     return (
       <Fragment>
@@ -21,12 +21,14 @@ const Product = ({ match, product: { product, loading }, getProduct }) => {
       </Fragment>
     );
   } else if (loading) {
-    return <div>home</div>;
+    return <Loader active />;
   } else {
     return <Redirect to="/" />;
   }
 };
-
+Product.propTypes = {
+  product: PropTypes.object.isRequired,
+};
 const mapStateToProps = state => ({
   product: state.product,
 });

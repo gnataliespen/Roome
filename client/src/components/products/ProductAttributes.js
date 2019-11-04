@@ -1,7 +1,9 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import { Header, Button, Modal } from "semantic-ui-react";
-import { deleteProduct } from "../../redux/actions/product";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+import { deleteProduct } from "../../redux/actions/product";
 
 const ProductAttributes = ({ description, _id, deleteProduct }) => {
   const [modal, setModal] = useState(false);
@@ -39,6 +41,9 @@ const ProductAttributes = ({ description, _id, deleteProduct }) => {
       </Modal>
     </Fragment>
   );
+};
+ProductAttributes.propTypes = {
+  deleteProduct: PropTypes.func.isRequired,
 };
 
 export default connect(

@@ -1,13 +1,6 @@
-import {
-  UPLOAD_IMG,
-  UPLOAD_FAILED,
-  CREATE_PRODUCT,
-  CREATE_FAILED,
-  CLEAR_UPLOAD,
-} from "./types";
+import { UPLOAD_IMG, UPLOAD_FAILED } from "./types";
 import { setAlert } from "./alert";
 import axios from "axios";
-import api from "../../util/apiConnection";
 
 export const uploadImg = data => async dispatch => {
   try {
@@ -26,25 +19,5 @@ export const uploadImg = data => async dispatch => {
     } else {
       dispatch(setAlert("Failed to upload image", "red"));
     }
-  }
-};
-export const createProduct = product => async dispatch => {
-  try {
-    const res = await api.post("/products/create", product);
-    dispatch({
-      type: CREATE_PRODUCT,
-      payload: res.data.product,
-    });
-    setTimeout(() => dispatch({ type: CLEAR_UPLOAD }), 1000);
-  } catch (err) {
-    const error = err.response.data.msg;
-    if (error) {
-      dispatch(setAlert(error, "red"));
-    } else {
-      dispatch(setAlert("Failed to create product", "red"));
-    }
-    dispatch({
-      type: CREATE_FAILED,
-    });
   }
 };

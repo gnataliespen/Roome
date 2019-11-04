@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
-import { setAlert } from "../../redux/actions/alert";
-import { login } from "../../redux/actions/auth";
+import { Link, Redirect } from "react-router-dom";
+import PropTypes from "prop-types";
 import {
   Message,
   Segment,
@@ -10,8 +10,9 @@ import {
   Button,
   Divider,
 } from "semantic-ui-react";
-import { Link, Redirect } from "react-router-dom";
-import PropTypes from "prop-types";
+
+import { setAlert } from "../../redux/actions/alert";
+import { login } from "../../redux/actions/auth";
 
 const initialUser = {
   email: "",

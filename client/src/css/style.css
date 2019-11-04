@@ -13,8 +13,15 @@ body {
 
 #menu {
   background: var(--menuBg);
+  border-radius: 0px;
 }
-
+.ui.text.container {
+  margin: 0 !important;
+}
+#main {
+  width: 80%;
+  margin: 0 auto;
+}
 /* Overrides default styled accordion styles (too much bottom padding) */
 .ui.styled.accordion .content {
   margin: 0;

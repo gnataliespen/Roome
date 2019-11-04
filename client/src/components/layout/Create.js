@@ -1,10 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
-import { uploadImg, createProduct } from "../../redux/actions/upload";
-import { setAlert } from "../../redux/actions/alert";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
-
 import {
   Form,
   Input,
@@ -15,6 +12,10 @@ import {
   Icon,
 } from "semantic-ui-react";
 
+import { uploadImg } from "../../redux/actions/upload";
+import { createProduct } from "../../redux/actions/product";
+import { setAlert } from "../../redux/actions/alert";
+
 const initialForm = {
   name: "",
   price: 0,
@@ -22,11 +23,7 @@ const initialForm = {
   description: "",
 };
 
-const Create = ({
-  createProduct,
-  uploadImg,
-  upload: { product, mediaUrl },
-}) => {
+const Create = ({ createProduct, uploadImg, mediaUrl, product }) => {
   const [form, setForm] = useState(initialForm);
   const [preview, setPreview] = useState("");
   const [loading, setLoading] = useState(false);
@@ -125,11 +122,13 @@ Create.propTypes = {
   uploadImg: PropTypes.func.isRequired,
   createProduct: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired,
-  upload: PropTypes.object.isRequired,
+  mediaUrl: PropTypes.string,
+  product: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  upload: state.upload,
+  mediaUrl: state.upload.mediaUrl,
+  product: state.product.product,
 });
 
 export default connect(

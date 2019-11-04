@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
-import ProductList from "../products/ProductList";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Loader } from "semantic-ui-react";
+
+import ProductList from "../products/ProductList";
 import { getProducts } from "../../redux/actions/product";
+
 const Home = ({ getProducts, products }) => {
-  //const [products, setProducts] = useState(false);
   useEffect(() => {
     getProducts();
   }, [getProducts]);
@@ -11,8 +14,12 @@ const Home = ({ getProducts, products }) => {
   if (products) {
     return <ProductList products={Object.values(products)} />;
   } else {
-    return <div>home</div>;
+    return <Loader active />;
   }
+};
+Home.propTypes = {
+  products: PropTypes.array.isRequired,
+  getProducts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

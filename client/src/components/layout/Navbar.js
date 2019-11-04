@@ -3,7 +3,9 @@ import { Menu, Container, Icon } from "semantic-ui-react";
 import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+
 import { logout } from "../../redux/actions/auth";
+
 const Navbar = ({ auth: { isAuth, loading }, logout }) => {
   let location = useLocation();
 
@@ -12,7 +14,7 @@ const Navbar = ({ auth: { isAuth, loading }, logout }) => {
   };
 
   return (
-    <Menu stackable fluid id="menu" inverted>
+    <Menu stackable id="menu" inverted>
       <Container text>
         <Link to="/">
           <Menu.Item active={isActive("/")} header>
