@@ -11,7 +11,7 @@ import {
   Button,
   Divider,
 } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 const initialUser = {
   name: "",
@@ -20,7 +20,7 @@ const initialUser = {
   conPass: "",
 };
 
-const SignUp = ({ setAlert, register }) => {
+const SignUp = ({ setAlert, register, isAuth }) => {
   const [user, setUser] = useState(initialUser);
   const [loading, setLoading] = useState(false);
 
@@ -39,6 +39,11 @@ const SignUp = ({ setAlert, register }) => {
     }
     setLoading(false);
   };
+
+  //Redirect if logged in
+  if (isAuth) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Fragment>
@@ -115,9 +120,14 @@ const SignUp = ({ setAlert, register }) => {
 SignUp.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  isAuth: PropTypes.bool,
 };
 
+const mapStateToProps = state => ({
+  isAuth: state.auth.isAuth,
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { setAlert, register },
 )(SignUp);

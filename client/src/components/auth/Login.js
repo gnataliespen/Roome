@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { setAlert } from "../../redux/actions/alert";
-import api from "../../util/apiConnection";
+import { login } from "../../redux/actions/auth";
 import {
   Message,
   Segment,
@@ -10,8 +10,7 @@ import {
   Button,
   Divider,
 } from "semantic-ui-react";
-import { Link } from "react-router-dom";
-import { handleLogin } from "../../util/auth";
+import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const initialUser = {
@@ -19,7 +18,7 @@ const initialUser = {
   password: "",
 };
 
-const Login = ({ setAlert }) => {
+const Login = ({ setAlert, login, isAuth }) => {
   const [user, setUser] = useState(initialUser);
   const [loading, setLoading] = useState(false);
 
@@ -30,15 +29,14 @@ const Login = ({ setAlert }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
-    try {
-      let res = await api.post("/auth/login", user);
-      handleLogin(res.data);
-    } catch (err) {
-      console.error(err);
-      setAlert("Login failed", "danger");
-    }
+    await login(user);
     setLoading(false);
   };
+
+  //Redirect if logged in
+  if (isAuth) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Fragment>
@@ -81,9 +79,14 @@ const Login = ({ setAlert }) => {
 };
 Login.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  isAuth: PropTypes.bool,
 };
 
+const mapStateToProps = state => ({
+  isAuth: state.auth.isAuth,
+});
 export default connect(
-  null,
-  { setAlert },
+  mapStateToProps,
+  { setAlert, login },
 )(Login);

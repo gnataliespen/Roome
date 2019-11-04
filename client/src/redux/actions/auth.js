@@ -6,6 +6,8 @@ import {
   REGISTER_SUCCESS,
   USER_LOADED,
   AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
 } from "../actions/types";
 import Cookies from "js-cookie";
 
@@ -31,7 +33,6 @@ export const loadUser = () => async dispatch => {
 
 //Register User
 export const register = ({ name, email, password }) => async dispatch => {
-  setAlert("register", "danger");
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -46,6 +47,7 @@ export const register = ({ name, email, password }) => async dispatch => {
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
+    dispatch(loadUser());
   } catch (err) {
     const error = err.response.data;
     if (error) {
@@ -53,6 +55,34 @@ export const register = ({ name, email, password }) => async dispatch => {
     }
     dispatch({
       type: REGISTER_FAIL,
+    });
+  }
+};
+
+//Login User
+export const login = ({ email, password }) => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify({ email, password });
+
+  try {
+    const res = await api.post("/auth/login", body, config);
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: res.data,
+    });
+    dispatch(loadUser());
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
+      dispatch(setAlert(error.msg, "danger"));
+    }
+    dispatch({
+      type: LOGIN_FAIL,
     });
   }
 };

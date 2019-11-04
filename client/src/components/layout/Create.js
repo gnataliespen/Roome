@@ -21,7 +21,7 @@ const initialForm = {
   description: "",
 };
 
-const Create = ({ setAlert }) => {
+const Create = ({ setAlert, history }) => {
   const [form, setForm] = useState(initialForm);
   const [preview, setPreview] = useState("");
   const [posted, setPosted] = useState(false);
@@ -46,6 +46,7 @@ const Create = ({ setAlert }) => {
       const payload = { name, price, description, mediaUrl };
       const res = await api.post("/products/createe", payload);
       console.log(res);
+      history.push("/");
     } catch (err) {
       ///////////
     }
