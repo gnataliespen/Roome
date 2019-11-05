@@ -7,6 +7,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   GET_CART,
+  UPDATE_CART,
 } from "../actions/types";
 import Cookies from "js-cookie";
 
@@ -43,6 +44,11 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         cart: { ...payload },
+      };
+    case UPDATE_CART:
+      return {
+        ...state,
+        loading: false,
       };
     case REGISTER_FAIL:
     case AUTH_ERROR:

@@ -10,6 +10,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   GET_CART,
+  UPDATE_CART,
 } from "./types";
 import Cookies from "js-cookie";
 
@@ -98,9 +99,26 @@ export const logout = () => dispatch => {
 };
 //Get Cart
 export const getCart = () => async dispatch => {
-  let cart = await api.get("/cart");
-  dispatch({
-    type: GET_CART,
-    payload: cart.data,
-  });
+  try {
+    let cart = await api.get("/cart");
+    dispatch({
+      type: GET_CART,
+      payload: cart.data,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+//Add to Cart
+export const addToCart = product => async dispatch => {
+  try {
+    let res = await api.put("/cart/add", { _id: product });
+    dispatch({
+      type: UPDATE_CART,
+    });
+    dispatch(setAlert(res.data.msg, "green"));
+  } catch (err) {
+    dispatch(setAlert(err.response.data.msg, "red"));
+  }
+  dispatch(getCart());
 };

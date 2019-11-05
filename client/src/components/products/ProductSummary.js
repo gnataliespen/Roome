@@ -14,7 +14,7 @@ const ProductSummary = ({ name, mediaUrl, _id, price, sku }) => {
             <Label>SKU: {sku}</Label>
           </Item.Description>
           <Item.Extra>
-            <AddProductToCart productId={_id} />
+            <AddProductToCart id={_id} />
           </Item.Extra>
         </Item.Content>
       </Item>
