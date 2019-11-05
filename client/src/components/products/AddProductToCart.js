@@ -16,7 +16,7 @@ const AddProductToCart = ({ isAuth, addToCart, id }) => {
   return (
     <Fragment>
       {isAuth ? (
-        <Button disabled={loading} color="orange" onClick={() => handleAdd()}>
+        <Button loading={loading} color="orange" onClick={() => handleAdd()}>
           <Icon className="plus cart" /> Add to cart
         </Button>
       ) : (

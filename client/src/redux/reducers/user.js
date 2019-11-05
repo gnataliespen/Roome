@@ -29,7 +29,6 @@ export default (state = initialState, action) => {
         isAuth: true,
         loading: false,
       };
-
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       Cookies.set("token", payload, { expires: 7 });
@@ -61,7 +60,6 @@ export default (state = initialState, action) => {
         isAuth: false,
         loading: false,
       };
-
     default:
       return state;
   }

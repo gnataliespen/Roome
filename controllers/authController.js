@@ -4,6 +4,9 @@ const bcrypt = require("bcrypt");
 const { jwtSecret } = require("../config/config");
 const Cart = require("../models/Cart");
 
+//@route POST /auth/signup
+//@desc Register user
+//@access Public
 exports.signUp = async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -28,22 +31,26 @@ exports.signUp = async (req, res) => {
 
     res.status(201).json(token);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: "Failed to register user" });
+    res.status(500).json({ msg: "Error, failed to register user" });
   }
 };
 
+//@route POST /auth/login
+//@desc Login user
+//@access Public
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
+    //Find user
     const user = await User.findOne({ email }).select("+password");
-
+    //Check if user exists
     if (!user) {
       return res.status(401).json({ msg: "Invalid Credentials" });
     }
-
+    //Verify password
     const match = await bcrypt.compare(password, user.password);
     if (match) {
+      //Create and send token
       const token = jwt.sign({ userId: user._id }, jwtSecret, {
         expiresIn: "1d",
       });
@@ -53,10 +60,13 @@ exports.login = async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: "Failed to login user" });
+    res.status(500).json({ msg: "Error, failed to login user" });
   }
 };
 
+//@route get /auth
+//@desc Get user
+//@access Private
 exports.getUser = async (req, res) => {
   try {
     const user = await User.findById(req.user);

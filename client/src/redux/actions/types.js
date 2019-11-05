@@ -20,3 +20,6 @@ export const CLEAR_PRODUCT = "CLEAR_PRODUCT";
 export const GET_CART = "GET_CART";
 export const UPDATE_CART = "UPDATE_CART";
 export const CLEAR_CART = "CLEAR_CART";
+export const DELETE_FAILED = "DELETE_FAILED";
+export const GET_PRODUCTS_FAILED = "GET_PRODUCTS_FAILED";
+export const GET_PRODUCT_FAILED = "GET_PRODUCT_FAILED";

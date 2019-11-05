@@ -1,9 +1,10 @@
 const User = require("../models/User");
 
 module.exports = async (req, res, next) => {
-  //Get User
   try {
+    //Get User
     let user = await User.findById(req.user);
+    //Check admin
     if (user.role === "admin") {
       next();
     } else {

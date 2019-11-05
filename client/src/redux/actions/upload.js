@@ -2,6 +2,7 @@ import { UPLOAD_IMG, UPLOAD_FAILED, CLEAR_UPLOAD } from "./types";
 import { setAlert } from "./alert";
 import axios from "axios";
 
+//Get url for img file
 export const uploadImg = data => async dispatch => {
   dispatch(clearUpload());
   try {
