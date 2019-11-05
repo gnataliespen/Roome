@@ -6,7 +6,7 @@ exports.getProducts = async (req, res) => {
     res.status(200).json(productList);
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("Server error");
+    res.status(500).json({ msg: "Cannot GET products" });
   }
 };
 
@@ -16,7 +16,7 @@ exports.getProduct = async (req, res) => {
     const product = await Product.findOne({ _id });
     res.status(200).json(product);
   } catch (err) {
-    res.status(404).send("Error, product was not found");
+    res.status(404).json({ msg: "Error, product was not found" });
   }
 };
 
@@ -26,7 +26,7 @@ exports.deleteProduct = async (req, res) => {
     await Product.findByIdAndDelete({ _id });
     res.status(200).json({ msg: "Product Deleted" });
   } catch (err) {
-    res.status(500).send("Error, product was not deleted");
+    res.status(500).json({ msg: "Error, product was not deleted" });
   }
 };
 
@@ -35,6 +35,6 @@ exports.createProduct = async (req, res) => {
     const product = await Product.create(req.body);
     res.status(200).json({ product });
   } catch (err) {
-    res.status(500).send("Error, product was not created");
+    res.status(500).json({ msg: "Error, product was not created" });
   }
 };

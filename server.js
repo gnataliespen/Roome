@@ -1,11 +1,13 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
+const dotenv = require("dotenv");
+var cors = require("cors");
+
 const connectDB = require("./config/db");
 const indexRouter = require("./routes/index");
 const productRouter = require("./routes/productRouter");
 const authRouter = require("./routes/authRouter");
-const cookieParser = require("cookie-parser");
-const dotenv = require("dotenv");
-var cors = require("cors");
+const cartRouter = require("./routes/cartRouter");
 
 const app = express();
 
@@ -22,6 +24,7 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/products", productRouter);
 app.use("/auth", authRouter);
+app.use("/cart", cartRouter);
 
 const { port } = require("./config/config");
 

@@ -9,8 +9,9 @@ const ProductAttributes = ({ description, _id, deleteProduct, user }) => {
   const [modal, setModal] = useState(false);
 
   const handleDelete = async () => {
-    await deleteProduct(_id);
     setModal(false);
+
+    await deleteProduct(_id);
   };
 
   return (

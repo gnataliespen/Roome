@@ -5,7 +5,6 @@ import {
   CLEAR_PRODUCT,
   CREATE_PRODUCT,
   CREATE_FAILED,
-  CLEAR_UPLOAD,
 } from "./types";
 import api from "../../util/apiConnection";
 import { setAlert } from "./alert";
@@ -27,16 +26,16 @@ export const getProducts = () => async dispatch => {
 
   //setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), 3000);
 };
-
-export const getProduct = id => async dispatch => {
+export const clearProduct = () => dispatch => {
   dispatch({ type: CLEAR_PRODUCT });
+};
+export const getProduct = id => async dispatch => {
+  dispatch(clearProduct());
   let res = await api.get(`/products/product/${id}`);
   dispatch({
     type: GET_PRODUCT,
     payload: res.data,
   });
-
-  //setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), 3000);
 };
 export const createProduct = product => async dispatch => {
   try {
@@ -45,7 +44,6 @@ export const createProduct = product => async dispatch => {
       type: CREATE_PRODUCT,
       payload: res.data.product,
     });
-    setTimeout(() => dispatch({ type: CLEAR_UPLOAD }), 1000);
   } catch (err) {
     const error = err.response.data.msg;
     if (error) {
@@ -56,5 +54,6 @@ export const createProduct = product => async dispatch => {
     dispatch({
       type: CREATE_FAILED,
     });
+    return true;
   }
 };

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
@@ -12,9 +12,8 @@ import {
   Icon,
 } from "semantic-ui-react";
 
-import { uploadImg } from "../../redux/actions/upload";
+import { uploadImg, clearUpload } from "../../redux/actions/upload";
 import { createProduct } from "../../redux/actions/product";
-import { setAlert } from "../../redux/actions/alert";
 
 const initialForm = {
   name: "",
@@ -23,7 +22,20 @@ const initialForm = {
   description: "",
 };
 
-const Create = ({ createProduct, uploadImg, mediaUrl, product }) => {
+const Create = ({
+  createProduct,
+  uploadImg,
+  mediaUrl,
+  product,
+  clearUpload,
+  alerts,
+}) => {
+  useEffect(() => {
+    return function cleanup() {
+      clearUpload();
+    };
+  }, [clearUpload]);
+
   const [form, setForm] = useState(initialForm);
   const [preview, setPreview] = useState("");
   const [loading, setLoading] = useState(false);
@@ -43,8 +55,10 @@ const Create = ({ createProduct, uploadImg, mediaUrl, product }) => {
     setLoading(true);
     const { name, price, description } = form;
     const payload = { name, price, description, mediaUrl };
-    await createProduct(payload);
-    setLoading(false);
+    let error = await createProduct(payload);
+    if (error) {
+      setLoading(false);
+    }
   };
 
   const getImgUrl = async file => {
@@ -56,7 +70,7 @@ const Create = ({ createProduct, uploadImg, mediaUrl, product }) => {
     await uploadImg(data);
     setLoading(false);
   };
-  if (product) {
+  if (product && mediaUrl) {
     return <Redirect to={`/product/${product._id}`} />;
   }
 
@@ -121,9 +135,9 @@ const Create = ({ createProduct, uploadImg, mediaUrl, product }) => {
 Create.propTypes = {
   uploadImg: PropTypes.func.isRequired,
   createProduct: PropTypes.func.isRequired,
-  setAlert: PropTypes.func.isRequired,
   mediaUrl: PropTypes.string,
   product: PropTypes.object,
+  clearUpload: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -133,5 +147,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { uploadImg, createProduct, setAlert },
+  { uploadImg, createProduct, clearUpload },
 )(Create);

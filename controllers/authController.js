@@ -29,7 +29,7 @@ exports.signUp = async (req, res) => {
     res.status(201).json(token);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Failed to register user");
+    res.status(500).json({ msg: "Failed to register user" });
   }
 };
 
@@ -53,7 +53,7 @@ exports.login = async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    res.status(500).send("Failed to login user");
+    res.status(500).json({ msg: "Failed to login user" });
   }
 };
 

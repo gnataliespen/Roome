@@ -4,14 +4,22 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Loader } from "semantic-ui-react";
 
-import { getProduct } from "../../redux/actions/product";
+import { getProduct, clearProduct } from "../../redux/actions/product";
 import ProductSummary from "./ProductSummary";
 import ProductAttributes from "./ProductAttributes.js";
 
-const Product = ({ match, product: { product, loading }, getProduct }) => {
+const Product = ({
+  match,
+  product: { product, loading },
+  getProduct,
+  clearProduct,
+}) => {
   useEffect(() => {
     getProduct(match.params.id);
-  }, [getProduct, match.params.id]);
+    return function cleanup() {
+      clearProduct();
+    };
+  }, [getProduct, match.params.id, clearProduct]);
 
   if (product) {
     return (
@@ -28,6 +36,8 @@ const Product = ({ match, product: { product, loading }, getProduct }) => {
 };
 Product.propTypes = {
   product: PropTypes.object.isRequired,
+  getProduct: PropTypes.func.isRequired,
+  clearProduct: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
   product: state.product,
@@ -35,5 +45,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProduct },
+  { getProduct, clearProduct },
 )(Product);

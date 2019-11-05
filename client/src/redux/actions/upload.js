@@ -1,8 +1,9 @@
-import { UPLOAD_IMG, UPLOAD_FAILED } from "./types";
+import { UPLOAD_IMG, UPLOAD_FAILED, CLEAR_UPLOAD } from "./types";
 import { setAlert } from "./alert";
 import axios from "axios";
 
 export const uploadImg = data => async dispatch => {
+  dispatch(clearUpload());
   try {
     const res = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, data);
     dispatch({
@@ -20,4 +21,7 @@ export const uploadImg = data => async dispatch => {
       dispatch(setAlert("Failed to upload image", "red"));
     }
   }
+};
+export const clearUpload = () => dispatch => {
+  dispatch({ type: CLEAR_UPLOAD });
 };

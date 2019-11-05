@@ -6,7 +6,7 @@ import { Loader } from "semantic-ui-react";
 import ProductList from "../products/ProductList";
 import { getProducts } from "../../redux/actions/product";
 
-const Home = ({ getProducts, products }) => {
+const Home = ({ getProducts, product: { products } }) => {
   useEffect(() => {
     getProducts();
   }, [getProducts]);
@@ -18,12 +18,13 @@ const Home = ({ getProducts, products }) => {
   }
 };
 Home.propTypes = {
-  products: PropTypes.array.isRequired,
+  product: PropTypes.object.isRequired,
   getProducts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  products: state.product.products,
+  product: state.product,
+  getProducts: PropTypes.func.isRequired,
 });
 
 export default connect(
