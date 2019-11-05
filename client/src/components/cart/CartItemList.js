@@ -28,7 +28,7 @@ CartItemList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isAuth: state.auth.isAuth,
+  isAuth: state.user.isAuth,
 });
 
 export default connect(mapStateToProps)(CartItemList);

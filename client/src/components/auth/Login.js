@@ -12,7 +12,7 @@ import {
 } from "semantic-ui-react";
 
 import { setAlert } from "../../redux/actions/alert";
-import { login } from "../../redux/actions/auth";
+import { login } from "../../redux/actions/user";
 
 const initialUser = {
   email: "",
@@ -85,7 +85,7 @@ Login.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isAuth: state.auth.isAuth,
+  isAuth: state.user.isAuth,
 });
 export default connect(
   mapStateToProps,

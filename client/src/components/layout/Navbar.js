@@ -4,9 +4,9 @@ import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { logout } from "../../redux/actions/auth";
+import { logout } from "../../redux/actions/user";
 
-const Navbar = ({ auth: { isAuth, loading, user }, logout }) => {
+const Navbar = ({ user: { isAuth, loading, user }, logout }) => {
   let location = useLocation();
 
   const isActive = route => {
@@ -70,11 +70,11 @@ const Navbar = ({ auth: { isAuth, loading, user }, logout }) => {
   );
 };
 Navbar.propTypes = {
-  auth: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
-  auth: state.auth,
+  user: state.user,
 });
 
 export default connect(

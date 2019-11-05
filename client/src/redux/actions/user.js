@@ -9,7 +9,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-} from "../actions/types";
+  GET_CART,
+} from "./types";
 import Cookies from "js-cookie";
 
 //Load User
@@ -25,6 +26,7 @@ export const loadUser = () => async dispatch => {
       type: USER_LOADED,
       payload: res.data,
     });
+    dispatch(getCart());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -92,5 +94,13 @@ export const login = ({ email, password }) => async dispatch => {
 export const logout = () => dispatch => {
   dispatch({
     type: LOGOUT,
+  });
+};
+//Get Cart
+export const getCart = () => async dispatch => {
+  let cart = await api.get("/cart");
+  dispatch({
+    type: GET_CART,
+    payload: cart.data,
   });
 };

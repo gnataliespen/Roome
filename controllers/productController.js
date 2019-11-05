@@ -5,7 +5,6 @@ exports.getProducts = async (req, res) => {
     let productList = await Product.find();
     res.status(200).json(productList);
   } catch (err) {
-    console.log(err.message);
     res.status(500).json({ msg: "Cannot GET products" });
   }
 };

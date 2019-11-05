@@ -6,6 +6,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  GET_CART,
 } from "../actions/types";
 import Cookies from "js-cookie";
 
@@ -14,6 +15,7 @@ const initialState = {
   isAuth: null,
   loading: true,
   user: null,
+  cart: {},
 };
 
 export default (state = initialState, action) => {
@@ -35,6 +37,12 @@ export default (state = initialState, action) => {
         token: payload,
         isAuth: true,
         loading: false,
+      };
+    case GET_CART:
+      return {
+        ...state,
+        loading: false,
+        cart: { ...payload },
       };
     case REGISTER_FAIL:
     case AUTH_ERROR:
