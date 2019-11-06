@@ -13,6 +13,8 @@ import {
   Icon,
 } from "semantic-ui-react";
 
+import formatDate from "../../util/formatDate";
+
 const AccountOrder = ({ orders: { orders, loading } }) => {
   let history = useHistory();
   if (loading) {
@@ -22,7 +24,7 @@ const AccountOrder = ({ orders: { orders, loading } }) => {
     return orders.map(order => ({
       key: order._id,
       title: {
-        content: <Label color="blue" content={order.createdAt} />,
+        content: <Label color="blue" content={formatDate(order.createdAt)} />,
       },
       content: {
         content: (
