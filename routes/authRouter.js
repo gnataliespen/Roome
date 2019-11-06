@@ -9,4 +9,6 @@ router.post("/signup", controller.signUp);
 
 router.get("/", auth, controller.getUser);
 
+router.get("/orders", auth, controller.getOrders);
+
 module.exports = router;

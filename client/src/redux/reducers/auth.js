@@ -11,9 +11,9 @@ import Cookies from "js-cookie";
 
 const initialState = {
   token: Cookies.get("token"),
-  isAuth: null,
+  isAuth: false,
   loading: true,
-  user: null,
+  user: {},
 };
 
 export default (state = initialState, action) => {
@@ -33,7 +33,6 @@ export default (state = initialState, action) => {
         ...state,
         token: payload,
       };
-
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:

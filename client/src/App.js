@@ -16,7 +16,7 @@ import Create from "./components/layout/Create";
 import Alert from "./components/layout/Alert";
 import setAuthToken from "./util/setAuthToken";
 import PrivateRoute from "./components/routes/PrivateRoute";
-import Account from "./components/auth/Account";
+import Account from "./components/account/Account";
 import "./css/style.css";
 
 const token = Cookies.get("token");
