@@ -3,6 +3,7 @@ import {
   GET_CART,
   UPDATE_CART,
   CLEAR_CART,
+  CHECKOUT,
 } from "../actions/types";
 const initialState = {
   loading: true,
@@ -22,6 +23,7 @@ export default (state = initialState, action) => {
       };
     case GET_CART_FAILED:
     case CLEAR_CART:
+    case CHECKOUT:
       return {
         ...state,
         loading: false,

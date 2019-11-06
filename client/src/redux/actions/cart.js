@@ -1,6 +1,12 @@
 import api from "../../util/apiConnection";
 import { setAlert } from "./alert";
-import { GET_CART, UPDATE_CART, GET_CART_FAILED, CLEAR_CART } from "./types";
+import {
+  GET_CART,
+  UPDATE_CART,
+  GET_CART_FAILED,
+  CLEAR_CART,
+  CHECKOUT,
+} from "./types";
 
 //Get Cart
 export const getCart = () => async dispatch => {
@@ -49,4 +55,16 @@ export const clearCart = () => dispatch => {
   dispatch({
     type: CLEAR_CART,
   });
+};
+
+export const handleCheckout = paymentData => async dispatch => {
+  try {
+    let res = await api.post("/cart/checkout", { ...paymentData });
+    dispatch({
+      type: CHECKOUT,
+    });
+    dispatch(setAlert(res.data.msg), "green");
+  } catch (err) {
+    console.log(err);
+  }
 };

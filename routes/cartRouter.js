@@ -9,4 +9,6 @@ router.put("/add", auth, controller.addToCart);
 
 router.put("/remove", auth, controller.removeFromCart);
 
+router.post("/checkout", auth, controller.checkOut);
+
 module.exports = router;

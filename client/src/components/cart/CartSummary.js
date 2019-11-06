@@ -1,27 +1,43 @@
 import React, { Fragment } from "react";
 import { Button, Divider, Segment } from "semantic-ui-react";
+import StripeCheckout from "react-stripe-checkout";
 import calculateCartTotal from "../../util/calculateCartTotal";
 import PropTypes from "prop-types";
 
-const CartSummary = ({ products }) => {
+const CartSummary = ({ products, handleCheckout }) => {
   let totals = calculateCartTotal(products);
   return (
     <Fragment>
       <Divider />
       <Segment clearing size="large">
         <strong>Sub total:</strong> ${totals.cartTotal}
-        <Button
-          icon="cart"
-          color="teal"
-          floated="right"
-          content="Checkout"
-          disabled={products.length === 0}
-        />
+        <StripeCheckout
+          name="Roome"
+          amount={totals.stripeTotal}
+          image={products.length > 0 ? products[0].product.mediaUrl : ""}
+          currency="USD"
+          shippingAddress={true}
+          billingAddress={true}
+          zipCode={true}
+          stripeKey={process.env.REACT_APP_STRIPE_KEY}
+          token={handleCheckout}
+          desktopShowModal
+          triggerEvent="onClick"
+        >
+          <Button
+            icon="cart"
+            color="teal"
+            floated="right"
+            content="Checkout"
+            disabled={products.length === 0}
+          />
+        </StripeCheckout>
       </Segment>
     </Fragment>
   );
 };
 CartSummary.propTypes = {
   products: PropTypes.array.isRequired,
+  handleCheckout: PropTypes.func.isRequired,
 };
 export default CartSummary;

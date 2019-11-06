@@ -5,9 +5,10 @@ import CartSummary from "./CartSummary";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { removeFromCart } from "../../redux/actions/cart";
+import { removeFromCart, handleCheckout } from "../../redux/actions/cart";
 
 const Cart = ({
+  handleCheckout,
   removeFromCart,
   cart: { loading: cartLoading, products },
   auth: { loading: authLoading, isAuth },
@@ -24,7 +25,7 @@ const Cart = ({
             isAuth={isAuth}
             removeFromCart={removeFromCart}
           />
-          <CartSummary products={products} />
+          <CartSummary handleCheckout={handleCheckout} products={products} />
         </Fragment>
       )}
     </Segment>
@@ -34,6 +35,7 @@ Cart.propTypes = {
   cart: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   removeFromCart: PropTypes.func.isRequired,
+  handleCheckout: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
   cart: state.cart,
@@ -42,5 +44,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { removeFromCart },
+  { removeFromCart, handleCheckout },
 )(Cart);

@@ -8,4 +8,4 @@ const calculateCartTotal = cart => {
   return { cartTotal, stripeTotal };
 };
 
-export default calculateCartTotal;
+module.exports = calculateCartTotal;
