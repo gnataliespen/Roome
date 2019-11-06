@@ -8,6 +8,7 @@ const indexRouter = require("./routes/index");
 const productRouter = require("./routes/productRouter");
 const authRouter = require("./routes/authRouter");
 const cartRouter = require("./routes/cartRouter");
+const orderRouter = require("./routes/orderRouter");
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use("/", indexRouter);
 app.use("/products", productRouter);
 app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
+app.use("/orders", orderRouter);
 
 const { port } = require("./config/config");
 

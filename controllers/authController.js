@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { jwtSecret } = require("../config/config");
 const Cart = require("../models/Cart");
-const Order = require("../models/Order");
 
 //@route POST /auth/signup
 //@desc Register user
@@ -73,20 +72,5 @@ exports.getUser = async (req, res) => {
     res.json(user);
   } catch (err) {
     return res.status(402).json({ msg: "Invalid token" });
-  }
-};
-
-//@route GET /auth/orders
-//@desc Get users orders
-//@access Private
-exports.getOrders = async (req, res) => {
-  try {
-    const orders = await Order.find({ user: req.user }).populate({
-      path: "products.product",
-      model: "Product",
-    });
-    res.status(200).json({ orders });
-  } catch {
-    res.status(404).json({ msg: "Error, no orders found" });
   }
 };

@@ -11,7 +11,7 @@ import {
   Icon,
 } from "semantic-ui-react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const AccountOrder = ({ orders: { orders, loading } }) => {
   let history = useHistory();
@@ -42,7 +42,14 @@ const AccountOrder = ({ orders: { orders, loading } }) => {
                 <List.Item key={p.product._id}>
                   <Image avatar src={p.product.mediaUrl} />
                   <List.Content>
-                    <List.Header>{p.product.name}</List.Header>
+                    <List.Header>
+                      <Link
+                        to={`/product/${p.product._id}`}
+                        style={{ color: "black" }}
+                      >
+                        {p.product.name}
+                      </Link>
+                    </List.Header>
                     <List.Description>
                       {p.quantity} | ${p.product.price}
                     </List.Description>

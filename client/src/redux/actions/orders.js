@@ -11,12 +11,13 @@ export const clearOrders = () => dispatch => {
 export const getOrders = () => async dispatch => {
   dispatch(clearOrders());
   try {
-    const orders = await api.get("/auth/orders");
+    const orders = await api.get("/orders");
     dispatch({
       type: GET_ORDERS,
       payload: orders.data.orders,
     });
   } catch (err) {
+    console.log(err.response);
     dispatch({
       type: GET_ORDERS_FAILED,
     });
