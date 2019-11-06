@@ -1,18 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Loader } from "semantic-ui-react";
+import { useLocation } from "react-router-dom";
 
 import ProductList from "../products/ProductList";
-import { getProducts } from "../../redux/actions/product";
+import ProductPagination from "../products/ProductPagination";
+import { getProducts, setActivePage } from "../../redux/actions/product";
 
-const Home = ({ getProducts, product: { products } }) => {
+const Home = ({
+  setActivePage,
+  getProducts,
+  product: { products, totalPages, activePage },
+}) => {
+  let location = useLocation();
   useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+    let page = location.search.slice(-1) || 1;
+    setActivePage(page);
+    getProducts(activePage);
+  }, [getProducts, activePage, location.search, setActivePage]);
 
   if (products) {
-    return <ProductList products={Object.values(products)} />;
+    return (
+      <Fragment>
+        <ProductList products={products} />
+        <ProductPagination
+          setActivePage={setActivePage}
+          activePage={activePage}
+          totalPages={totalPages}
+        />
+      </Fragment>
+    );
   } else {
     return <Loader active />;
   }
@@ -28,5 +46,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProducts },
+  { getProducts, setActivePage },
 )(Home);

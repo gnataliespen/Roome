@@ -87,33 +87,23 @@ exports.removeFromCart = async (req, res) => {
 //@access Private
 exports.checkOut = async (req, res) => {
   const paymentData = req.body;
-  console.log(paymentData);
   try {
     //Get cart
     const cart = await Cart.findOne({ user: req.user }).populate({
       path: "products.product",
       model: "Product",
     });
-    console.log("cart:");
 
-    console.log(cart);
     //Doublecheck total
     const total = calculateCartTotal(cart.products);
     let { stripeTotal, cartTotal } = total;
-    //stripeTotal = parseInt(stripeTotal);
-    //cartTotal = parseInt(cartTotal);
 
-    console.log("total:");
-
-    console.log(stripeTotal);
     //Check if email is linked with existing stripe customer
     const prevCustomer = await stripe.customers.list({
       email: paymentData.email,
       limit: 1,
     });
-    console.log("prevcust:");
 
-    console.log(prevCustomer);
     //If not create new stripe customer
     let newCustomer;
     if (prevCustomer.data.length === 0) {
@@ -122,13 +112,9 @@ exports.checkOut = async (req, res) => {
         source: paymentData.id,
       });
     }
-    console.log("newcust:");
 
-    console.log(newCustomer);
     const customer = (newCustomer && newCustomer.id) || prevCustomer.data[0].id;
-    console.log("cust:");
 
-    console.log(customer);
     //Create charge with total, send receipt to email
     await stripe.charges.create(
       {
@@ -143,8 +129,6 @@ exports.checkOut = async (req, res) => {
       },
     );
 
-    console.log("total");
-
     //Add order to db
     await Order.create({
       user: req.user,
@@ -152,16 +136,13 @@ exports.checkOut = async (req, res) => {
       total: cartTotal,
       products: cart.products,
     });
-    console.log("order done");
 
     //Clear cart
     await Cart.findOneAndUpdate({ _id: cart._id }, { $set: { products: [] } });
-    console.log("cart done");
 
     //Send success (200) response
-    res.status(200).send("Checkout successful");
+    res.status(200).json({ msg: "Checkout successful" });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ msg: "Error, Could not complete purchase" });
   }
 };

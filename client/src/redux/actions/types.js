@@ -26,3 +26,4 @@ export const GET_PRODUCTS_FAILED = "GET_PRODUCTS_FAILED";
 export const GET_PRODUCT_FAILED = "GET_PRODUCT_FAILED";
 export const CLEAR_CART = "CLEAR_CART";
 export const CHECKOUT = "CHECKOUT";
+export const SET_PAGE = "SET_PAGE";

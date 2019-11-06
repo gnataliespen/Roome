@@ -63,7 +63,8 @@ export const handleCheckout = paymentData => async dispatch => {
     dispatch({
       type: CHECKOUT,
     });
-    dispatch(setAlert(res.data.msg), "green");
+    console.log(res);
+    dispatch(setAlert(res.data.msg, "green"));
   } catch (err) {
     console.log(err);
   }

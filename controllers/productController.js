@@ -1,12 +1,23 @@
 const Product = require("../models/Product");
 
-//@route GET /products
+//@route GET /products/:page
 //@desc Get list of products
 //@access Public
 exports.getProducts = async (req, res) => {
+  const pageNum = req.params.page || 1;
+  let products = [];
   try {
-    let productList = await Product.find();
-    res.status(200).json(productList);
+    const totalDocs = await Product.countDocuments();
+    const totalPages = Math.ceil(totalDocs / 12);
+    if (pageNum === 1) {
+      products = await Product.find().limit(12);
+    } else {
+      const skips = 12 * (pageNum - 1);
+      products = await Product.find()
+        .skip(skips)
+        .limit(12);
+    }
+    res.status(200).json({ products, totalPages });
   } catch (err) {
     res.status(500).json({ msg: "Error, cannot get products" });
   }

@@ -4,7 +4,7 @@ const controller = require("../controllers/productController");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 
-router.get("/", controller.getProducts);
+router.get("/:page", controller.getProducts);
 
 router.get("/product/:id", controller.getProduct);
 

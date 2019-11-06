@@ -8,6 +8,7 @@ import {
   DELETE_FAILED,
   GET_PRODUCTS_FAILED,
   GET_PRODUCT_FAILED,
+  SET_PAGE,
 } from "./types";
 import api from "../../util/apiConnection";
 import { setAlert } from "./alert";
@@ -33,9 +34,9 @@ export const deleteProduct = id => async dispatch => {
 };
 
 //Get list of products
-export const getProducts = () => async dispatch => {
+export const getProducts = page => async dispatch => {
   try {
-    let res = await api.get("/products");
+    let res = await api.get(`/products/${page}`);
     dispatch({
       type: GET_PRODUCTS,
       payload: res.data,
@@ -97,4 +98,11 @@ export const createProduct = product => async dispatch => {
     });
     return true;
   }
+};
+//Set active page
+export const setActivePage = page => dispatch => {
+  dispatch({
+    type: SET_PAGE,
+    payload: page,
+  });
 };

@@ -21,7 +21,6 @@ const CartSummary = ({ products, handleCheckout }) => {
           zipCode={true}
           stripeKey={process.env.REACT_APP_STRIPE_KEY}
           token={handleCheckout}
-          desktopShowModal
           triggerEvent="onClick"
         >
           <Button

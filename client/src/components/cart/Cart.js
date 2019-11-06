@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Segment, Loader } from "semantic-ui-react";
 import CartItemList from "./CartItemList";
 import CartSummary from "./CartSummary";
@@ -13,8 +13,17 @@ const Cart = ({
   cart: { loading: cartLoading, products },
   auth: { loading: authLoading, isAuth },
 }) => {
+  useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const checkout = async paymentData => {
+    console.log(paymentData);
+    setLoading(true);
+    await handleCheckout(paymentData);
+    setLoading(false);
+  };
   return (
-    <Segment>
+    <Segment loading={loading}>
       {cartLoading ? (
         <Loader active />
       ) : (
@@ -25,7 +34,7 @@ const Cart = ({
             isAuth={isAuth}
             removeFromCart={removeFromCart}
           />
-          <CartSummary handleCheckout={handleCheckout} products={products} />
+          <CartSummary handleCheckout={checkout} products={products} />
         </Fragment>
       )}
     </Segment>
