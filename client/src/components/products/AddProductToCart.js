@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
-import { addToCart } from "../../redux/actions/user";
+import { addToCart } from "../../redux/actions/cart";
+
 const AddProductToCart = ({ isAuth, addToCart, id }) => {
   let history = useHistory();
   const [loading, setLoading] = useState(false);
@@ -32,7 +33,7 @@ AddProductToCart.propTypes = {
   addToCart: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
-  isAuth: state.user.isAuth,
+  isAuth: state.auth.isAuth,
 });
 export default connect(
   mapStateToProps,

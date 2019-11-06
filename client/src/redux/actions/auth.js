@@ -1,6 +1,3 @@
-import api from "../../util/apiConnection";
-import { setAlert } from "./alert";
-import setAuthToken from "../../util/setAuthToken";
 import {
   REGISTER_FAIL,
   REGISTER_SUCCESS,
@@ -9,10 +6,13 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  GET_CART,
-  UPDATE_CART,
 } from "./types";
 import Cookies from "js-cookie";
+
+import api from "../../util/apiConnection";
+import { setAlert } from "./alert";
+import { getCart, clearCart } from "./cart";
+import setAuthToken from "../../util/setAuthToken";
 
 //Load User
 export const loadUser = () => async dispatch => {
@@ -27,12 +27,12 @@ export const loadUser = () => async dispatch => {
       type: USER_LOADED,
       payload: res.data,
     });
-    dispatch(getCart());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
     });
   }
+  dispatch(getCart());
 };
 
 //Register User
@@ -95,29 +95,5 @@ export const logout = () => dispatch => {
   dispatch({
     type: LOGOUT,
   });
-};
-//Get Cart
-export const getCart = () => async dispatch => {
-  try {
-    let cart = await api.get("/cart");
-    dispatch({
-      type: GET_CART,
-      payload: cart.data,
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
-//Add to Cart
-export const addToCart = product => async dispatch => {
-  try {
-    let res = await api.put("/cart/add", { _id: product });
-    dispatch({
-      type: UPDATE_CART,
-    });
-    dispatch(setAlert(res.data.msg, "green"));
-  } catch (err) {
-    dispatch(setAlert(err.response.data.msg, "red"));
-  }
-  dispatch(getCart());
+  dispatch(clearCart());
 };

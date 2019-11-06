@@ -5,8 +5,11 @@ const Cart = require("../models/Cart");
 //@access Private
 exports.getCart = async (req, res) => {
   try {
-    let cart = await Cart.findOne({ user: req.user }).populate("Product");
-    res.status(200).json(cart);
+    let cart = await Cart.findOne({ user: req.user }).populate({
+      path: "products.product",
+      model: "Product",
+    });
+    res.status(200).json(cart.products);
   } catch (err) {
     res.status(500).json({ msg: "Error, cannot get cart" });
   }
@@ -20,7 +23,7 @@ exports.addToCart = async (req, res) => {
     const { _id } = req.body;
 
     //Get users cart
-    const cart = await Cart.findOne({ user: req.user }).populate("Product");
+    const cart = await Cart.findOne({ user: req.user });
 
     //Check if product is already in cart
     const cartIncludes = cart.products.some(doc => doc.product == _id);
@@ -39,8 +42,35 @@ exports.addToCart = async (req, res) => {
         { $addToSet: { products: newProduct } },
       );
     }
-    res.status(200).json({ msg: "Added to cart" });
+    //Get updated cart
+    const updatedCart = await Cart.findOne({ user: req.user }).populate({
+      path: "products.product",
+      model: "Product",
+    });
+
+    res.status(200).json(updatedCart.products);
   } catch (err) {
     res.status(500).json({ msg: "Error, Could not add to cart" });
+  }
+};
+
+//@route delete /cart/remove
+//@desc remove a product from users cart
+//@access Private
+exports.removeFromCart = async (req, res) => {
+  try {
+    const { _id } = req.body;
+
+    let cart = await Cart.findOneAndUpdate(
+      { user: req.user },
+      { $pull: { products: { product: _id } } },
+      { new: true },
+    ).populate({
+      path: "products.product",
+      model: "Product",
+    });
+    res.status(200).json(cart.products);
+  } catch (err) {
+    res.status(500).json({ msg: "Error, cannot update cart" });
   }
 };

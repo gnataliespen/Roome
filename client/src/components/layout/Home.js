@@ -24,7 +24,6 @@ Home.propTypes = {
 
 const mapStateToProps = state => ({
   product: state.product,
-  getProducts: PropTypes.func.isRequired,
 });
 
 export default connect(

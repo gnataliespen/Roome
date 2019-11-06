@@ -53,7 +53,7 @@ ProductAttributes.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  user: state.user.user,
+  user: state.auth.user,
 });
 
 export default connect(

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 const PrivateRoute = ({
   component: Component,
-  user: { user, loading, isAuth },
+  auth: { user, loading, isAuth },
   admin = false,
   ...rest
 }) => {
@@ -22,18 +22,12 @@ const PrivateRoute = ({
     />
   );
 };
-
 PrivateRoute.propTypes = {
-  isAuth: PropTypes.bool,
-  loading: PropTypes.bool.isRequired,
-};
-
-PrivateRoute.propTypes = {
-  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-  user: state.user,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(PrivateRoute);

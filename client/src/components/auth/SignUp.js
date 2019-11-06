@@ -11,8 +11,7 @@ import {
   Divider,
 } from "semantic-ui-react";
 
-import { setAlert } from "../../redux/actions/alert";
-import { register } from "../../redux/actions/user";
+import { register } from "../../redux/actions/auth";
 
 const initialUser = {
   name: "",
@@ -34,7 +33,7 @@ const SignUp = ({ setAlert, register, isAuth }) => {
     setLoading(true);
     const { name, email, password, conPass } = user;
     if (password === conPass) {
-      register({ name, email, password });
+      await register({ name, email, password });
     } else {
       setAlert("Passwords do not match", "red");
     }
@@ -119,16 +118,15 @@ const SignUp = ({ setAlert, register, isAuth }) => {
   );
 };
 SignUp.propTypes = {
-  setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   isAuth: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
-  isAuth: state.user.isAuth,
+  isAuth: state.auth.isAuth,
 });
 
 export default connect(
   mapStateToProps,
-  { setAlert, register },
+  { register },
 )(SignUp);

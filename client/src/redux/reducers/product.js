@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
     case CREATE_PRODUCT:
       return { loading: false, product: payload, mediaUrl: null };
     case GET_PRODUCTS:
-      return { ...state, loading: false, products: [...payload] };
+      return { ...state, products: [...payload] };
     case GET_PRODUCT:
       return { ...state, loading: false, product: payload };
     case DELETE_PRODUCT:

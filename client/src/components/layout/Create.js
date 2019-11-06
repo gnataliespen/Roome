@@ -28,7 +28,6 @@ const Create = ({
   mediaUrl,
   product,
   clearUpload,
-  alerts,
 }) => {
   useEffect(() => {
     return function cleanup() {
@@ -70,6 +69,8 @@ const Create = ({
     await uploadImg(data);
     setLoading(false);
   };
+
+  //Redirect after creating product
   if (product && mediaUrl) {
     return <Redirect to={`/product/${product._id}`} />;
   }

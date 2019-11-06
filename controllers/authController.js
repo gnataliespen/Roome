@@ -59,7 +59,6 @@ exports.login = async (req, res) => {
       return res.status(401).json({ msg: "Invalid Credentials" });
     }
   } catch (err) {
-    console.error(err);
     res.status(500).json({ msg: "Error, failed to login user" });
   }
 };
@@ -72,7 +71,6 @@ exports.getUser = async (req, res) => {
     const user = await User.findById(req.user);
     res.json(user);
   } catch (err) {
-    console.error(err);
     return res.status(402).json({ msg: "Invalid token" });
   }
 };

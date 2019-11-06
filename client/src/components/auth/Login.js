@@ -11,15 +11,14 @@ import {
   Divider,
 } from "semantic-ui-react";
 
-import { setAlert } from "../../redux/actions/alert";
-import { login } from "../../redux/actions/user";
+import { login } from "../../redux/actions/auth";
 
 const initialUser = {
   email: "",
   password: "",
 };
 
-const Login = ({ setAlert, login, isAuth }) => {
+const Login = ({ login, isAuth }) => {
   const [user, setUser] = useState(initialUser);
   const [loading, setLoading] = useState(false);
 
@@ -78,16 +77,16 @@ const Login = ({ setAlert, login, isAuth }) => {
     </Fragment>
   );
 };
+
 Login.propTypes = {
-  setAlert: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   isAuth: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
-  isAuth: state.user.isAuth,
+  isAuth: state.auth.isAuth,
 });
 export default connect(
   mapStateToProps,
-  { setAlert, login },
+  { login },
 )(Login);

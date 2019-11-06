@@ -7,4 +7,6 @@ router.get("/", auth, controller.getCart);
 
 router.put("/add", auth, controller.addToCart);
 
+router.put("/remove", auth, controller.removeFromCart);
+
 module.exports = router;

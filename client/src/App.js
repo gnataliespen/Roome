@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 //Redux
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { loadUser } from "./redux/actions/user";
+import { loadUser } from "./redux/actions/auth";
 //Components
 import Navbar from "./components/layout/Navbar";
 import Home from "./components/layout/Home";
