@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 const CartItemList = ({ loading, products, isAuth, removeFromCart }) => {
   let history = useHistory();
+
   const mapCartToItems = products => {
     return products.map(p => ({
       childkey: p.product._id,

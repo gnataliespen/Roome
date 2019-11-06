@@ -12,6 +12,7 @@ import {
 } from "semantic-ui-react";
 
 import { register } from "../../redux/actions/auth";
+import { setAlert } from "../../redux/actions/alert";
 
 const initialUser = {
   name: "",
@@ -119,6 +120,7 @@ const SignUp = ({ setAlert, register, isAuth }) => {
 };
 SignUp.propTypes = {
   register: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
   isAuth: PropTypes.bool,
 };
 
@@ -128,5 +130,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { register },
+  { register, setAlert },
 )(SignUp);

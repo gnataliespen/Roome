@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from "react";
 import { Segment, Loader } from "semantic-ui-react";
-import CartItemList from "./CartItemList";
-import CartSummary from "./CartSummary";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
+import CartItemList from "./CartItemList";
+import CartSummary from "./CartSummary";
 import { removeFromCart, handleCheckout } from "../../redux/actions/cart";
 
 const Cart = ({
@@ -17,7 +17,6 @@ const Cart = ({
   const [loading, setLoading] = useState(false);
 
   const checkout = async paymentData => {
-    console.log(paymentData);
     setLoading(true);
     await handleCheckout(paymentData);
     setLoading(false);

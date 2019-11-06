@@ -28,6 +28,7 @@ export default (state = initialState, action) => {
     case GET_PRODUCTS:
       return {
         ...state,
+        loading: false,
         products: [...payload.products],
         totalPages: payload.totalPages,
       };

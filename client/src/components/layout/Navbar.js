@@ -18,8 +18,8 @@ const Navbar = ({ auth: { isAuth, loading, user }, logout }) => {
       <Container text>
         <Link to="/">
           <Menu.Item active={isActive("/")} header>
-            {/*add title/logo later*/}
-            React ecomm
+            <Icon name="home" size="large" />
+            Roome
           </Menu.Item>
         </Link>
         <Link to="/checkout">

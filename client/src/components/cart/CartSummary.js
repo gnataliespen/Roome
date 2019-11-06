@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
 import { Button, Divider, Segment } from "semantic-ui-react";
 import StripeCheckout from "react-stripe-checkout";
-import calculateCartTotal from "../../util/calculateCartTotal";
 import PropTypes from "prop-types";
+
+import calculateCartTotal from "../../util/calculateCartTotal";
 
 const CartSummary = ({ products, handleCheckout }) => {
   let totals = calculateCartTotal(products);

@@ -1,4 +1,6 @@
 import React, { Fragment } from "react";
+import PropTypes from "prop-types";
+import { useHistory, Link } from "react-router-dom";
 import {
   Loader,
   Header,
@@ -10,8 +12,6 @@ import {
   Segment,
   Icon,
 } from "semantic-ui-react";
-import PropTypes from "prop-types";
-import { useHistory, Link } from "react-router-dom";
 
 const AccountOrder = ({ orders: { orders, loading } }) => {
   let history = useHistory();

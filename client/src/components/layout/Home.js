@@ -11,7 +11,7 @@ import { getProducts, setActivePage } from "../../redux/actions/product";
 const Home = ({
   setActivePage,
   getProducts,
-  product: { products, totalPages, activePage },
+  product: { products, totalPages, activePage, loading },
 }) => {
   let location = useLocation();
   useEffect(() => {
@@ -19,6 +19,10 @@ const Home = ({
     setActivePage(page);
     getProducts(activePage);
   }, [getProducts, activePage, location.search, setActivePage]);
+
+  if (loading) {
+    return <Loader active />;
+  }
 
   if (products) {
     return (
@@ -31,13 +35,12 @@ const Home = ({
         />
       </Fragment>
     );
-  } else {
-    return <Loader active />;
   }
 };
 Home.propTypes = {
   product: PropTypes.object.isRequired,
   getProducts: PropTypes.func.isRequired,
+  setActivePage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

@@ -17,7 +17,6 @@ export const getOrders = () => async dispatch => {
       payload: orders.data.orders,
     });
   } catch (err) {
-    console.log(err.response);
     dispatch({
       type: GET_ORDERS_FAILED,
     });
