@@ -38,7 +38,7 @@ const Navbar = ({ auth: { isAuth, loading, user }, logout }) => {
         )}
         {!loading && isAuth ? (
           <>
-            <Link to="/Account">
+            <Link to="/account">
               <Menu.Item active={isActive("/account")} header>
                 <Icon name="user" size="large" />
                 Account

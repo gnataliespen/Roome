@@ -10,6 +10,7 @@ import {
 
 //Get Cart
 export const getCart = () => async dispatch => {
+  dispatch(clearCart());
   try {
     let cart = await api.get("/cart");
     dispatch({

@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const Cart = require("../models/Cart");
 
 //@route GET /products/:page
 //@desc Get list of products
@@ -41,7 +42,13 @@ exports.getProduct = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
   try {
     const _id = req.params.id;
+    //Delete by id
     await Product.findByIdAndDelete({ _id });
+    //Remove from all carts
+    await Cart.updateMany(
+      { "products.product": _id },
+      { $pull: { products: { product: _id } } },
+    );
     res.status(200).json({ msg: "Product Deleted" });
   } catch (err) {
     res.status(500).json({ msg: "Error, product was not deleted" });
