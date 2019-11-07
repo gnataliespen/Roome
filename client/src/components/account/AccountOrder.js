@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { useHistory, Link } from "react-router-dom";
 import {
-  Loader,
   Header,
   Label,
   Accordion,
@@ -17,9 +16,7 @@ import formatDate from "../../util/formatDate";
 
 const AccountOrder = ({ orders: { orders, loading } }) => {
   let history = useHistory();
-  if (loading) {
-    return <Loader active />;
-  }
+
   const mapOrdersToPannels = orders => {
     return orders.map(order => ({
       key: order._id,

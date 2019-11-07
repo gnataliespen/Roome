@@ -1,7 +1,12 @@
-import { UPLOAD_IMG, UPLOAD_FAILED, CLEAR_UPLOAD } from "../actions/types";
+import {
+  UPLOAD_IMG,
+  UPLOAD_FAILED,
+  CLEAR_UPLOAD,
+  PREP_UPLOAD,
+} from "../actions/types";
 
 const initialState = {
-  loading: true,
+  loading: false,
   mediaUrl: null,
 };
 
@@ -11,9 +16,10 @@ export default (state = initialState, action) => {
   switch (type) {
     case UPLOAD_IMG:
       return { ...state, loading: false, mediaUrl: payload };
-    case CLEAR_UPLOAD:
-      return { loading: false, mediaUrl: null };
+    case PREP_UPLOAD:
+      return { ...state, loading: true, mediaUrl: null };
     case UPLOAD_FAILED:
+    case CLEAR_UPLOAD:
       return { ...state, loading: false, mediaUrl: null };
     default:
       return state;

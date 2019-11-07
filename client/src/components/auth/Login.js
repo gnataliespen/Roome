@@ -18,9 +18,8 @@ const initialUser = {
   password: "",
 };
 
-const Login = ({ login, isAuth }) => {
+const Login = ({ login, auth: { isAuth, loading } }) => {
   const [user, setUser] = useState(initialUser);
-  const [loading, setLoading] = useState(false);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -28,9 +27,7 @@ const Login = ({ login, isAuth }) => {
   };
   const handleSubmit = async e => {
     e.preventDefault();
-    setLoading(true);
     await login(user);
-    setLoading(false);
   };
 
   //Redirect if logged in
@@ -80,11 +77,11 @@ const Login = ({ login, isAuth }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuth: PropTypes.bool,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-  isAuth: state.auth.isAuth,
+  auth: state.auth,
 });
 export default connect(
   mapStateToProps,

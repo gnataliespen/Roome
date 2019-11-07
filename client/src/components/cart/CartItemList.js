@@ -1,9 +1,9 @@
 import React from "react";
-import { Header, Segment, Icon, Button, Item, Loader } from "semantic-ui-react";
+import { Header, Segment, Icon, Button, Item } from "semantic-ui-react";
 import { useHistory, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const CartItemList = ({ loading, products, isAuth, removeFromCart }) => {
+const CartItemList = ({ products, isAuth, removeFromCart }) => {
   let history = useHistory();
 
   const mapCartToItems = products => {
@@ -30,10 +30,6 @@ const CartItemList = ({ loading, products, isAuth, removeFromCart }) => {
       ),
     }));
   };
-
-  if (loading) {
-    return <Loader active />;
-  }
 
   if (products.length === 0) {
     return (

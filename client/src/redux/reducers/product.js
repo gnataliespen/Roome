@@ -3,6 +3,7 @@ import {
   GET_PRODUCT,
   DELETE_PRODUCT,
   CLEAR_PRODUCT,
+  CLEAR_PRODUCTS,
   CREATE_FAILED,
   CREATE_PRODUCT,
   DELETE_FAILED,
@@ -45,6 +46,7 @@ export default (state = initialState, action) => {
     case DELETE_FAILED:
       return { ...state, loading: false };
     case CLEAR_PRODUCT:
+    case CLEAR_PRODUCTS:
       return { ...state, product: null, loading: true };
     default:
       return state;

@@ -1,11 +1,4 @@
 @font-face {
-  font-family: "futura_bk_btbook";
-  src: url("./fonts/futura_book_font-webfont.woff2") format("woff2"),
-    url("./fonts/futura_book_font-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
   font-family: "futura_md_btmedium";
   src: url("./fonts/futura_medium_bt-webfont.woff2") format("woff2"),
     url("./fonts/futura_medium_bt-webfont.woff") format("woff");
@@ -22,7 +15,7 @@ a {
   color: white;
 }
 body {
-  font-family: "futura_bk_btbook";
+  font-family: "futura_md_btmedium";
   background: var(--bodyBg);
 }
 .ui.text.container,
@@ -30,7 +23,8 @@ body {
 .ui.card > .content > .header,
 .ui.cards > .card > .content > .header,
 .ui.items > .item > .content > .header,
-.ui.button {
+.ui.button,
+.ui.message .header {
   font-family: "futura_md_btmedium" !important;
 }
 #menu {

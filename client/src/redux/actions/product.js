@@ -1,8 +1,11 @@
+import api from "../../util/apiConnection";
+import { setAlert } from "./alert";
 import {
   DELETE_PRODUCT,
   GET_PRODUCTS,
   GET_PRODUCT,
   CLEAR_PRODUCT,
+  CLEAR_PRODUCTS,
   CREATE_PRODUCT,
   CREATE_FAILED,
   DELETE_FAILED,
@@ -10,8 +13,6 @@ import {
   GET_PRODUCT_FAILED,
   SET_PAGE,
 } from "./types";
-import api from "../../util/apiConnection";
-import { setAlert } from "./alert";
 
 //Delete a product (admin only)
 export const deleteProduct = id => async dispatch => {
@@ -34,7 +35,8 @@ export const deleteProduct = id => async dispatch => {
 };
 
 //Get list of products
-export const getProducts = page => async dispatch => {
+export const getProducts = (page = 1) => async dispatch => {
+  dispatch(clearProduct());
   try {
     let res = await api.get(`/products/${page}`);
     dispatch({
@@ -52,6 +54,10 @@ export const getProducts = page => async dispatch => {
       type: GET_PRODUCTS_FAILED,
     });
   }
+};
+//Clear products state
+export const clearProducts = () => dispatch => {
+  dispatch({ type: CLEAR_PRODUCTS });
 };
 //Clear product state
 export const clearProduct = () => dispatch => {
@@ -80,12 +86,15 @@ export const getProduct = id => async dispatch => {
 };
 //Create product
 export const createProduct = product => async dispatch => {
+  dispatch({ type: CLEAR_PRODUCT });
+
   try {
     const res = await api.post("/products/create", product);
     dispatch({
       type: CREATE_PRODUCT,
       payload: res.data.product,
     });
+    dispatch(getProducts());
   } catch (err) {
     const error = err.response.data.msg;
     if (error) {
@@ -96,7 +105,6 @@ export const createProduct = product => async dispatch => {
     dispatch({
       type: CREATE_FAILED,
     });
-    return true;
   }
 };
 //Set active page

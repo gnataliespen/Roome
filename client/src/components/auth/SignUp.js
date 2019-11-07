@@ -21,24 +21,22 @@ const initialUser = {
   conPass: "",
 };
 
-const SignUp = ({ setAlert, register, isAuth }) => {
+const SignUp = ({ auth: { isAuth, loading }, register, setAlert }) => {
   const [user, setUser] = useState(initialUser);
-  const [loading, setLoading] = useState(false);
 
   const handleChange = e => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+
   const handleSubmit = async e => {
     e.preventDefault();
-    setLoading(true);
     const { name, email, password, conPass } = user;
     if (password === conPass) {
       await register({ name, email, password });
     } else {
       setAlert("Passwords do not match", "red");
     }
-    setLoading(false);
   };
 
   //Redirect if logged in
@@ -121,11 +119,11 @@ const SignUp = ({ setAlert, register, isAuth }) => {
 SignUp.propTypes = {
   register: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired,
-  isAuth: PropTypes.bool,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-  isAuth: state.auth.isAuth,
+  auth: state.auth,
 });
 
 export default connect(

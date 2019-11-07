@@ -2,16 +2,18 @@ import React, { Fragment, useState } from "react";
 import { Header, Button, Modal } from "semantic-ui-react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 
 import { deleteProduct } from "../../redux/actions/product";
 
 const ProductAttributes = ({ description, _id, deleteProduct, user }) => {
+  const history = useHistory();
   const [modal, setModal] = useState(false);
 
   const handleDelete = async () => {
     setModal(false);
-
     await deleteProduct(_id);
+    history.push("/");
   };
 
   return (

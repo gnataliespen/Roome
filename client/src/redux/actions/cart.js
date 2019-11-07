@@ -25,6 +25,7 @@ export const getCart = () => async dispatch => {
 };
 //Add to Cart
 export const addToCart = product => async dispatch => {
+  dispatch(clearCart());
   try {
     let newCart = await api.put("/cart/add", { _id: product });
     dispatch({

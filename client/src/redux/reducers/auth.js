@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 import {
   REGISTER_FAIL,
   REGISTER_SUCCESS,
@@ -6,8 +8,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  CLEAR_USER,
 } from "../actions/types";
-import Cookies from "js-cookie";
 
 const initialState = {
   token: Cookies.get("token"),
@@ -26,6 +28,13 @@ export default (state = initialState, action) => {
         isAuth: true,
         loading: false,
       };
+    case CLEAR_USER:
+      return {
+        ...state,
+        user: {},
+        isAuth: false,
+        loading: true,
+      };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       Cookies.set("token", payload, { expires: 7 });
@@ -33,6 +42,7 @@ export default (state = initialState, action) => {
         ...state,
         token: payload,
       };
+
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
@@ -43,7 +53,7 @@ export default (state = initialState, action) => {
         token: null,
         isAuth: false,
         loading: false,
-        user: null,
+        user: {},
       };
     default:
       return state;

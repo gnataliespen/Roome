@@ -25,9 +25,9 @@ const initialForm = {
 const Create = ({
   createProduct,
   uploadImg,
-  mediaUrl,
-  product,
   clearUpload,
+  product: { loading: productLoading, product },
+  upload: { loading: uploadLoading, mediaUrl },
 }) => {
   useEffect(() => {
     return function cleanup() {
@@ -37,7 +37,6 @@ const Create = ({
 
   const [form, setForm] = useState(initialForm);
   const [preview, setPreview] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleChange = e => {
     const { name, value, files } = e.target;
@@ -51,23 +50,17 @@ const Create = ({
 
   const handleSubmit = async e => {
     e.preventDefault();
-    setLoading(true);
     const { name, price, description } = form;
     const payload = { name, price, description, mediaUrl };
-    let error = await createProduct(payload);
-    if (error) {
-      setLoading(false);
-    }
+    await createProduct(payload);
   };
 
   const getImgUrl = async file => {
-    setLoading(true);
     const data = new FormData();
     data.append("file", file);
     data.append("upload_preset", "ecomProject");
     data.append("cloud_name", "gnatscloud");
     await uploadImg(data);
-    setLoading(false);
   };
 
   //Redirect after creating product
@@ -80,7 +73,10 @@ const Create = ({
       <Header as="h2" block>
         <Icon name="add" color="orange" /> Create new product
       </Header>
-      <Form loading={loading} onSubmit={e => handleSubmit(e)}>
+      <Form
+        loading={productLoading || uploadLoading}
+        onSubmit={e => handleSubmit(e)}
+      >
         <Form.Group widths="equal">
           <Form.Field
             control={Input}
@@ -136,14 +132,14 @@ const Create = ({
 Create.propTypes = {
   uploadImg: PropTypes.func.isRequired,
   createProduct: PropTypes.func.isRequired,
-  mediaUrl: PropTypes.string,
-  product: PropTypes.object,
   clearUpload: PropTypes.func.isRequired,
+  upload: PropTypes.object.isRequired,
+  product: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-  mediaUrl: state.upload.mediaUrl,
-  product: state.product.product,
+  upload: state.upload,
+  product: state.product,
 });
 
 export default connect(

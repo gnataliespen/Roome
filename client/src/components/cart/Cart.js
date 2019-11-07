@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Segment, Loader } from "semantic-ui-react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -18,31 +18,27 @@ const Cart = ({
   cart: { loading: cartLoading, products },
   auth: { loading: authLoading, isAuth },
 }) => {
-  const [loading, setLoading] = useState(false);
   useEffect(() => {
     getCart();
   }, [getCart]);
 
   const checkout = async paymentData => {
-    setLoading(true);
     await handleCheckout(paymentData);
-    setLoading(false);
   };
+  if (cartLoading || authLoading) {
+    return <Loader active />;
+  }
   return (
-    <Segment loading={loading}>
-      {cartLoading ? (
-        <Loader active />
-      ) : (
-        <Fragment>
-          <CartItemList
-            products={products}
-            loading={authLoading}
-            isAuth={isAuth}
-            removeFromCart={removeFromCart}
-          />
-          <CartSummary handleCheckout={checkout} products={products} />
-        </Fragment>
-      )}
+    <Segment>
+      <Fragment>
+        <CartItemList
+          products={products}
+          loading={authLoading}
+          isAuth={isAuth}
+          removeFromCart={removeFromCart}
+        />
+        <CartSummary handleCheckout={checkout} products={products} />
+      </Fragment>
     </Segment>
   );
 };

@@ -22,13 +22,19 @@ export default (state = initialState, action) => {
         products: [...payload],
       };
     case GET_CART_FAILED:
-    case CLEAR_CART:
     case CHECKOUT:
       return {
         ...state,
         loading: false,
         products: [],
       };
+    case CLEAR_CART:
+      return {
+        ...state,
+        loading: true,
+        products: [],
+      };
+
     default:
       return state;
   }

@@ -1,10 +1,10 @@
-import { UPLOAD_IMG, UPLOAD_FAILED, CLEAR_UPLOAD } from "./types";
 import { setAlert } from "./alert";
 import axios from "axios";
+import { UPLOAD_IMG, UPLOAD_FAILED, CLEAR_UPLOAD, PREP_UPLOAD } from "./types";
 
 //Get url for img file
 export const uploadImg = data => async dispatch => {
-  dispatch(clearUpload());
+  dispatch(prepUpload());
   try {
     const res = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, data);
     dispatch({
@@ -25,4 +25,7 @@ export const uploadImg = data => async dispatch => {
 };
 export const clearUpload = () => dispatch => {
   dispatch({ type: CLEAR_UPLOAD });
+};
+export const prepUpload = () => dispatch => {
+  dispatch({ type: PREP_UPLOAD });
 };

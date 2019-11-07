@@ -1,23 +1,25 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Segment, Loader } from "semantic-ui-react";
 
 import AccountHeader from "./AccountHeader";
 import AccountOrder from "./AccountOrder";
 import { getOrders, clearOrders } from "../../redux/actions/orders";
 
-const Account = ({ user, orders, getOrders, clearOrders }) => {
+const Account = ({ user, orders, getOrders }) => {
   useEffect(() => {
     getOrders();
-    return function cleanup() {
-      clearOrders();
-    };
-  }, [getOrders, clearOrders]);
+  }, [getOrders]);
+
+  if (orders.loading) {
+    return <Loader active />;
+  }
   return (
-    <Fragment>
+    <Segment>
       <AccountHeader user={user} />
       <AccountOrder orders={orders} />
-    </Fragment>
+    </Segment>
   );
 };
 Account.propTypes = {

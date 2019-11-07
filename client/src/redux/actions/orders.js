@@ -1,5 +1,4 @@
 import api from "../../util/apiConnection";
-
 import { GET_ORDERS, GET_ORDERS_FAILED, CLEAR_ORDERS } from "./types";
 
 //Clear orders

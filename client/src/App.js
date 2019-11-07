@@ -5,6 +5,8 @@ import Cookies from "js-cookie";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { loadUser } from "./redux/actions/auth";
+import { getProducts } from "./redux/actions/product";
+
 //Components
 import Navbar from "./components/layout/Navbar";
 import Home from "./components/layout/Home";
@@ -26,6 +28,7 @@ if (token) {
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
+    store.dispatch(getProducts());
   }, []);
 
   return (

@@ -1,3 +1,9 @@
+import Cookies from "js-cookie";
+
+import api from "../../util/apiConnection";
+import { setAlert } from "./alert";
+import { getCart, clearCart } from "./cart";
+import setAuthToken from "../../util/setAuthToken";
 import {
   REGISTER_FAIL,
   REGISTER_SUCCESS,
@@ -6,13 +12,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  CLEAR_USER,
 } from "./types";
-import Cookies from "js-cookie";
-
-import api from "../../util/apiConnection";
-import { setAlert } from "./alert";
-import { getCart, clearCart } from "./cart";
-import setAuthToken from "../../util/setAuthToken";
 
 //Load User
 export const loadUser = () => async dispatch => {
@@ -37,6 +38,8 @@ export const loadUser = () => async dispatch => {
 
 //Register User
 export const register = ({ name, email, password }) => async dispatch => {
+  dispatch(clearUser());
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -65,6 +68,8 @@ export const register = ({ name, email, password }) => async dispatch => {
 
 //Login User
 export const login = ({ email, password }) => async dispatch => {
+  dispatch(clearUser());
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -96,4 +101,8 @@ export const logout = () => dispatch => {
     type: LOGOUT,
   });
   dispatch(clearCart());
+};
+//Clear user state
+export const clearUser = () => dispatch => {
+  dispatch({ type: CLEAR_USER });
 };
