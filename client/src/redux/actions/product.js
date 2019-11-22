@@ -11,7 +11,7 @@ import {
   DELETE_FAILED,
   GET_PRODUCTS_FAILED,
   GET_PRODUCT_FAILED,
-  SET_PAGE,
+  SET_PAGE
 } from "./types";
 
 //Delete a product (admin only)
@@ -19,7 +19,7 @@ export const deleteProduct = id => async dispatch => {
   try {
     await api.delete(`/products/delete/${id}`);
     dispatch({
-      type: DELETE_PRODUCT,
+      type: DELETE_PRODUCT
     });
   } catch (err) {
     const error = err.response.data.msg;
@@ -29,19 +29,19 @@ export const deleteProduct = id => async dispatch => {
       dispatch(setAlert("Failed to delete product", "red"));
     }
     dispatch({
-      type: DELETE_FAILED,
+      type: DELETE_FAILED
     });
   }
 };
 
 //Get list of products
 export const getProducts = (page = 1) => async dispatch => {
-  dispatch(clearProduct());
+  dispatch(clearProducts());
   try {
     let res = await api.get(`/products/${page}`);
     dispatch({
       type: GET_PRODUCTS,
-      payload: res.data,
+      payload: res.data
     });
   } catch (err) {
     const error = err.response.data.msg;
@@ -51,7 +51,7 @@ export const getProducts = (page = 1) => async dispatch => {
       dispatch(setAlert("Failed to get products list", "red"));
     }
     dispatch({
-      type: GET_PRODUCTS_FAILED,
+      type: GET_PRODUCTS_FAILED
     });
   }
 };
@@ -70,7 +70,7 @@ export const getProduct = id => async dispatch => {
     let res = await api.get(`/products/product/${id}`);
     dispatch({
       type: GET_PRODUCT,
-      payload: res.data,
+      payload: res.data
     });
   } catch (err) {
     const error = err.response.data.msg;
@@ -80,7 +80,7 @@ export const getProduct = id => async dispatch => {
       dispatch(setAlert("Failed to get product", "red"));
     }
     dispatch({
-      type: GET_PRODUCT_FAILED,
+      type: GET_PRODUCT_FAILED
     });
   }
 };
@@ -92,7 +92,7 @@ export const createProduct = product => async dispatch => {
     const res = await api.post("/products/create", product);
     dispatch({
       type: CREATE_PRODUCT,
-      payload: res.data.product,
+      payload: res.data.product
     });
     dispatch(getProducts());
   } catch (err) {
@@ -103,7 +103,7 @@ export const createProduct = product => async dispatch => {
       dispatch(setAlert("Failed to create product", "red"));
     }
     dispatch({
-      type: CREATE_FAILED,
+      type: CREATE_FAILED
     });
   }
 };
@@ -111,6 +111,6 @@ export const createProduct = product => async dispatch => {
 export const setActivePage = page => dispatch => {
   dispatch({
     type: SET_PAGE,
-    payload: page,
+    payload: page
   });
 };

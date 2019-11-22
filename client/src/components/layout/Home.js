@@ -11,7 +11,7 @@ import { getProducts, setActivePage } from "../../redux/actions/product";
 const Home = ({
   setActivePage,
   getProducts,
-  product: { products, totalPages, activePage, loading },
+  product: { products, totalPages, activePage, loading }
 }) => {
   let location = useLocation();
   useEffect(() => {
@@ -23,7 +23,7 @@ const Home = ({
   if (loading) {
     return <Loader active />;
   }
-
+  console.log("home");
   if (products) {
     return (
       <Fragment>
@@ -40,14 +40,11 @@ const Home = ({
 Home.propTypes = {
   product: PropTypes.object.isRequired,
   getProducts: PropTypes.func.isRequired,
-  setActivePage: PropTypes.func.isRequired,
+  setActivePage: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  product: state.product,
+  product: state.product
 });
 
-export default connect(
-  mapStateToProps,
-  { getProducts, setActivePage },
-)(Home);
+export default connect(mapStateToProps, { getProducts, setActivePage })(Home);

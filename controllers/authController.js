@@ -63,7 +63,7 @@ exports.login = async (req, res) => {
   }
 };
 
-//@route get /auth
+//@route GET /auth
 //@desc Get user
 //@access Private
 exports.getUser = async (req, res) => {

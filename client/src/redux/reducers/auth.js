@@ -8,14 +8,14 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_USER,
+  CLEAR_USER
 } from "../actions/types";
 
 const initialState = {
   token: Cookies.get("token"),
   isAuth: false,
   loading: true,
-  user: {},
+  user: {}
 };
 
 export default (state = initialState, action) => {
@@ -26,21 +26,21 @@ export default (state = initialState, action) => {
         ...state,
         user: payload,
         isAuth: true,
-        loading: false,
+        loading: false
       };
     case CLEAR_USER:
       return {
         ...state,
         user: {},
         isAuth: false,
-        loading: true,
+        loading: true
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       Cookies.set("token", payload, { expires: 7 });
       return {
         ...state,
-        token: payload,
+        token: payload
       };
 
     case REGISTER_FAIL:
@@ -48,12 +48,13 @@ export default (state = initialState, action) => {
     case LOGIN_FAIL:
     case LOGOUT:
       Cookies.remove("token");
+      console.log("satae");
       return {
         ...state,
         token: null,
         isAuth: false,
         loading: false,
-        user: {},
+        user: {}
       };
     default:
       return state;

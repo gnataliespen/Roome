@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Cookies from "js-cookie";
 //Redux
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { loadUser } from "./redux/actions/auth";
-import { getProducts } from "./redux/actions/product";
 
 //Components
 import Navbar from "./components/layout/Navbar";
@@ -16,19 +14,13 @@ import Login from "./components/auth/Login";
 import Cart from "./components/cart/Cart";
 import Create from "./components/layout/Create";
 import Alert from "./components/layout/Alert";
-import setAuthToken from "./util/setAuthToken";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import Account from "./components/account/Account";
 import "./css/style.css";
 
-const token = Cookies.get("token");
-if (token) {
-  setAuthToken(token);
-}
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
-    store.dispatch(getProducts());
   }, []);
 
   return (

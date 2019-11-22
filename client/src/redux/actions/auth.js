@@ -12,7 +12,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_USER,
+  CLEAR_USER
 } from "./types";
 
 //Load User
@@ -26,11 +26,11 @@ export const loadUser = () => async dispatch => {
     const res = await api.get("/auth");
     dispatch({
       type: USER_LOADED,
-      payload: res.data,
+      payload: res.data
     });
   } catch (err) {
     dispatch({
-      type: AUTH_ERROR,
+      type: AUTH_ERROR
     });
   }
   dispatch(getCart());
@@ -42,8 +42,8 @@ export const register = ({ name, email, password }) => async dispatch => {
 
   const config = {
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"
+    }
   };
 
   const body = JSON.stringify({ name, email, password });
@@ -52,7 +52,7 @@ export const register = ({ name, email, password }) => async dispatch => {
     const res = await api.post("/auth/signup", body, config);
     dispatch({
       type: REGISTER_SUCCESS,
-      payload: res.data,
+      payload: res.data
     });
     dispatch(loadUser());
   } catch (err) {
@@ -61,7 +61,7 @@ export const register = ({ name, email, password }) => async dispatch => {
       dispatch(setAlert(error.msg, "red"));
     }
     dispatch({
-      type: REGISTER_FAIL,
+      type: REGISTER_FAIL
     });
   }
 };
@@ -72,8 +72,8 @@ export const login = ({ email, password }) => async dispatch => {
 
   const config = {
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"
+    }
   };
 
   const body = JSON.stringify({ email, password });
@@ -82,7 +82,7 @@ export const login = ({ email, password }) => async dispatch => {
     const res = await api.post("/auth/login", body, config);
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: res.data,
+      payload: res.data
     });
     dispatch(loadUser());
   } catch (err) {
@@ -91,18 +91,20 @@ export const login = ({ email, password }) => async dispatch => {
       dispatch(setAlert(error.msg, "red"));
     }
     dispatch({
-      type: LOGIN_FAIL,
+      type: LOGIN_FAIL
     });
   }
 };
 //Logout
 export const logout = () => dispatch => {
   dispatch({
-    type: LOGOUT,
+    type: LOGOUT
   });
   dispatch(clearCart());
 };
 //Clear user state
 export const clearUser = () => dispatch => {
   dispatch({ type: CLEAR_USER });
+  Cookies.remove("token");
+  setAuthToken(null);
 };

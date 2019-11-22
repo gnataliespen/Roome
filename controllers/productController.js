@@ -1,27 +1,15 @@
 const Product = require("../models/Product");
 const Cart = require("../models/Cart");
+const pagination = require("../util/pagination");
 
 //@route GET /products/:page
 //@desc Get list of products
 //@access Public
 exports.getProducts = async (req, res) => {
   const pageNum = req.params.page || 1;
-  let products = [];
-  try {
-    const totalDocs = await Product.countDocuments();
-    const totalPages = Math.ceil(totalDocs / 12);
-    if (pageNum === 1) {
-      products = await Product.find().limit(12);
-    } else {
-      const skips = 12 * (pageNum - 1);
-      products = await Product.find()
-        .skip(skips)
-        .limit(12);
-    }
-    res.status(200).json({ products, totalPages });
-  } catch (err) {
-    res.status(500).json({ msg: "Error, cannot get products" });
-  }
+  let query = req.query.type ? { productType: req.query.type } : {};
+  resObj = await pagination(pageNum, query);
+  res.status(200).json(resObj);
 };
 
 //@route GET /products/product/:id
@@ -47,7 +35,7 @@ exports.deleteProduct = async (req, res) => {
     //Remove from all carts
     await Cart.updateMany(
       { "products.product": _id },
-      { $pull: { products: { product: _id } } },
+      { $pull: { products: { product: _id } } }
     );
     res.status(200).json({ msg: "Product Deleted" });
   } catch (err) {

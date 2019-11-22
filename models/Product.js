@@ -5,25 +5,28 @@ const { Schema } = mongoose;
 const ProductSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    required: true
   },
   price: {
     type: Number,
-    required: true,
+    required: true
   },
   sku: {
     type: String,
     required: true,
-    default: shortid.generate(),
+    default: shortid.generate()
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
   mediaUrl: {
     type: String,
-    required: true,
+    required: true
   },
+  productType: {
+    type: String
+  }
 });
 
 module.exports = mongoose.model("Product", ProductSchema);
