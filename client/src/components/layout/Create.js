@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
@@ -9,7 +9,7 @@ import {
   Button,
   Image,
   Header,
-  Icon,
+  Icon
 } from "semantic-ui-react";
 
 import { uploadImg, clearUpload } from "../../redux/actions/upload";
@@ -20,6 +20,8 @@ const initialForm = {
   price: 0,
   media: "",
   description: "",
+  productType: "",
+  created: false
 };
 
 const Create = ({
@@ -27,14 +29,8 @@ const Create = ({
   uploadImg,
   clearUpload,
   product: { loading: productLoading, product },
-  upload: { loading: uploadLoading, mediaUrl },
+  upload: { loading: uploadLoading, mediaUrl }
 }) => {
-  useEffect(() => {
-    return function cleanup() {
-      clearUpload();
-    };
-  }, [clearUpload]);
-
   const [form, setForm] = useState(initialForm);
   const [preview, setPreview] = useState("");
 
@@ -50,9 +46,10 @@ const Create = ({
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const { name, price, description } = form;
-    const payload = { name, price, description, mediaUrl };
+    const { name, price, description, productType } = form;
+    const payload = { name, price, description, mediaUrl, productType };
     await createProduct(payload);
+    setForm({ created: true });
   };
 
   const getImgUrl = async file => {
@@ -64,7 +61,7 @@ const Create = ({
   };
 
   //Redirect after creating product
-  if (product && mediaUrl) {
+  if (form.created && product) {
     return <Redirect to={`/product/${product._id}`} />;
   }
 
@@ -99,15 +96,24 @@ const Create = ({
           />
           <Form.Field
             control={Input}
-            name="media"
-            label="Media"
-            content="Select an image"
-            type="file"
-            accept="image/*"
+            name="productType"
+            label="Product Type"
+            type="text"
             onChange={handleChange}
+            value={form.productType}
             required
           />
         </Form.Group>
+        <Form.Field
+          control={Input}
+          name="media"
+          label="Media"
+          content="Select an image"
+          type="file"
+          accept="image/*"
+          onChange={handleChange}
+          required
+        />
         <Image src={preview} rounded centered size="small" />
         <Form.Field
           control={TextArea}
@@ -134,15 +140,16 @@ Create.propTypes = {
   createProduct: PropTypes.func.isRequired,
   clearUpload: PropTypes.func.isRequired,
   upload: PropTypes.object.isRequired,
-  product: PropTypes.object.isRequired,
+  product: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   upload: state.upload,
-  product: state.product,
+  product: state.product
 });
 
-export default connect(
-  mapStateToProps,
-  { uploadImg, createProduct, clearUpload },
-)(Create);
+export default connect(mapStateToProps, {
+  uploadImg,
+  createProduct,
+  clearUpload
+})(Create);

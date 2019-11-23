@@ -15,15 +15,17 @@ const Home = ({
 }) => {
   let location = useLocation();
   useEffect(() => {
-    let page = location.search.slice(-1) || 1;
-    setActivePage(page);
-    getProducts(activePage);
+    const queries = location.search.split("/");
+    const num = (queries[0] && queries[0].split("=")[1]) || 1;
+    const type = (queries[1] && queries[1].split("=")[1]) || null;
+
+    setActivePage(num);
+    getProducts(activePage, type);
   }, [getProducts, activePage, location.search, setActivePage]);
 
   if (loading) {
     return <Loader active />;
   }
-  console.log("home");
   if (products) {
     return (
       <Fragment>

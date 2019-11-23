@@ -9,7 +9,7 @@ import {
   DELETE_FAILED,
   GET_PRODUCTS_FAILED,
   GET_PRODUCT_FAILED,
-  SET_PAGE,
+  SET_PAGE
 } from "../actions/types";
 
 const initialState = {
@@ -17,7 +17,7 @@ const initialState = {
   products: [],
   loading: true,
   totalPages: 1,
-  activePage: 1,
+  activePage: 1
 };
 
 export default (state = initialState, action) => {
@@ -25,13 +25,13 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case CREATE_PRODUCT:
-      return { loading: false, product: payload, mediaUrl: null };
+      return { ...state, loading: false, product: payload, mediaUrl: null };
     case GET_PRODUCTS:
       return {
         ...state,
         loading: false,
         products: [...payload.products],
-        totalPages: payload.totalPages,
+        totalPages: payload.totalPages
       };
     case GET_PRODUCT:
       return { ...state, loading: false, product: payload };

@@ -35,10 +35,11 @@ export const deleteProduct = id => async dispatch => {
 };
 
 //Get list of products
-export const getProducts = (page = 1) => async dispatch => {
+export const getProducts = (page, query) => async dispatch => {
   dispatch(clearProducts());
+  const url = query ? `/products/${page}/?type=${query}` : `/products/${page}`;
   try {
-    let res = await api.get(`/products/${page}`);
+    let res = await api.get(url);
     dispatch({
       type: GET_PRODUCTS,
       payload: res.data
@@ -94,7 +95,6 @@ export const createProduct = product => async dispatch => {
       type: CREATE_PRODUCT,
       payload: res.data.product
     });
-    dispatch(getProducts());
   } catch (err) {
     const error = err.response.data.msg;
     if (error) {

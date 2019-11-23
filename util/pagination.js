@@ -3,7 +3,6 @@ const Product = require("../models/Product");
 const pagination = async (pageNum, query) => {
   let products = [];
   try {
-    console.log(query);
     const totalDocs = await Product.countDocuments(query);
     const totalPages = Math.ceil(totalDocs / 12);
     if (pageNum === 1) {

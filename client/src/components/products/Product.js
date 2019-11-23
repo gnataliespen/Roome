@@ -11,6 +11,7 @@ const Product = ({ match, product: { product, loading }, getProduct }) => {
   useEffect(() => {
     getProduct(match.params.id);
   }, [getProduct, match.params.id]);
+
   if (loading) {
     return <Loader active />;
   }
@@ -23,13 +24,10 @@ const Product = ({ match, product: { product, loading }, getProduct }) => {
 };
 Product.propTypes = {
   product: PropTypes.object.isRequired,
-  getProduct: PropTypes.func.isRequired,
+  getProduct: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  product: state.product,
+  product: state.product
 });
 
-export default connect(
-  mapStateToProps,
-  { getProduct },
-)(Product);
+export default connect(mapStateToProps, { getProduct })(Product);
