@@ -67,3 +67,6 @@ body {
 .alert {
   margin: 10px !important;
 }
+.dropdown-item {
+  color: black !important;
+}

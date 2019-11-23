@@ -67,18 +67,30 @@ const Navbar = ({ auth: { isAuth, loading, user }, logout }) => {
       <Menu.Item position="right" className="browse">
         <Dropdown text="Browse products">
           <Dropdown.Menu>
-            <Dropdown.Item href="/products/?page=1&type=Tables" text="Tables" />
-            <Dropdown.Item
-              href="/products/?page=1&type=HomeDecor"
-              text="Home Decor"
-            />
-            <Dropdown.Item href="/products/?page=1&type=Sofas" text="Sofas" />
-            <Dropdown.Item href="/products/?page=1&type=Chairs" text="Chairs" />
-            <Dropdown.Item
-              href="/products/?page=1&type=Dressers"
-              text="Dressers & Storage Drawers"
-            />
-            <Dropdown.Item href="/products" text="All Products" />
+            <Link to="/products/?page=1&type=Tables">
+              <Dropdown.Item className="dropdown-item">Tables</Dropdown.Item>
+            </Link>
+            <Link to="/products/?page=1&type=HomeDecor">
+              <Dropdown.Item className="dropdown-item">
+                Home Decor
+              </Dropdown.Item>
+            </Link>
+            <Link to="/products/?page=1&type=Sofas">
+              <Dropdown.Item className="dropdown-item">Sofas</Dropdown.Item>
+            </Link>
+            <Link to="/products/?page=1&type=Chairs">
+              <Dropdown.Item className="dropdown-item">Chairs</Dropdown.Item>
+            </Link>
+            <Link to="/products/?page=1&type=Dressers">
+              <Dropdown.Item className="dropdown-item">
+                Dressers & Storage Drawers
+              </Dropdown.Item>
+            </Link>
+            <Link to="/products">
+              <Dropdown.Item className="dropdown-item">
+                All Products
+              </Dropdown.Item>
+            </Link>
           </Dropdown.Menu>
         </Dropdown>
       </Menu.Item>
