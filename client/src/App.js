@@ -7,7 +7,7 @@ import { loadUser } from "./redux/actions/auth";
 
 //Components
 import Navbar from "./components/layout/Navbar";
-import Home from "./components/layout/Home";
+import Browse from "./components/layout/Browse";
 import Product from "./components/products/Product";
 import SignUp from "./components/auth/SignUp";
 import Login from "./components/auth/Login";
@@ -17,6 +17,7 @@ import Alert from "./components/layout/Alert";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import Account from "./components/account/Account";
 import "./css/style.css";
+import Landing from "./components/layout/Landing";
 
 const App = () => {
   useEffect(() => {
@@ -27,18 +28,19 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Navbar />
-        <div id="main">
-          <Route exact path="/" component={Home} />
-          <Alert />
-          <Switch>
+        <Alert />
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <div id="main">
+            <Route exact path="/products" component={Browse} />
             <Route exact path="/product/:id" component={Product} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/checkout" component={Cart} />
             <PrivateRoute exact path="/create" admin component={Create} />
             <PrivateRoute exact path="/account" component={Account} />
-          </Switch>
-        </div>
+          </div>
+        </Switch>
       </Router>
     </Provider>
   );
