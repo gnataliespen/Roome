@@ -9,11 +9,11 @@ export const uploadImg = data => async dispatch => {
     const res = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, data);
     dispatch({
       type: UPLOAD_IMG,
-      payload: res.data.url,
+      payload: res.data.url
     });
   } catch (err) {
     dispatch({
-      type: UPLOAD_FAILED,
+      type: UPLOAD_FAILED
     });
     if (err.response) {
       let msg = err.response.data.error.message;

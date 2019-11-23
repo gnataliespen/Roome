@@ -59,9 +59,9 @@ export const register = ({ name, email, password }) => async dispatch => {
     });
     dispatch(loadUser());
   } catch (err) {
-    const error = err.response.data;
+    const error = err.response;
     if (error) {
-      dispatch(setAlert(error.msg, "red"));
+      dispatch(setAlert(error.data.msg, "red"));
     }
     dispatch({
       type: REGISTER_FAIL
@@ -89,9 +89,9 @@ export const login = ({ email, password }) => async dispatch => {
     });
     dispatch(loadUser());
   } catch (err) {
-    const error = err.response.data;
+    const error = err.response;
     if (error) {
-      dispatch(setAlert(error.msg, "red"));
+      dispatch(setAlert(error.data.msg, "red"));
     }
     dispatch({
       type: LOGIN_FAIL

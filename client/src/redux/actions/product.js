@@ -22,9 +22,9 @@ export const deleteProduct = id => async dispatch => {
       type: DELETE_PRODUCT
     });
   } catch (err) {
-    const error = err.response.data.msg;
+    let error = err.response;
     if (error) {
-      dispatch(setAlert(error, "red"));
+      dispatch(setAlert(error.data.msg, "red"));
     } else {
       dispatch(setAlert("Failed to delete product", "red"));
     }
@@ -45,9 +45,9 @@ export const getProducts = (page, query) => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    const error = err.response.data.msg;
+    let error = err.response;
     if (error) {
-      dispatch(setAlert(error, "red"));
+      dispatch(setAlert(error.data.msg, "red"));
     } else {
       dispatch(setAlert("Failed to get products list", "red"));
     }
@@ -74,9 +74,9 @@ export const getProduct = id => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    const error = err.response.data.msg;
+    let error = err.response;
     if (error) {
-      dispatch(setAlert(error, "red"));
+      dispatch(setAlert(error.data.msg, "red"));
     } else {
       dispatch(setAlert("Failed to get product", "red"));
     }
@@ -96,9 +96,9 @@ export const createProduct = product => async dispatch => {
       payload: res.data.product
     });
   } catch (err) {
-    const error = err.response.data.msg;
+    let error = err.response;
     if (error) {
-      dispatch(setAlert(error, "red"));
+      dispatch(setAlert(error.data.msg, "red"));
     } else {
       dispatch(setAlert("Failed to create product", "red"));
     }
