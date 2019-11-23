@@ -70,18 +70,18 @@ const AccountOrder = ({ orders: { orders, loading } }) => {
 
   return (
     <Fragment>
-      <Header as="h2">
+      <Header as="h2" className="seg-text">
         <Icon name="folder open" />
         Order History
       </Header>
       {orders.length === 0 ? (
-        <Segment textAlign="center" inverted tertiary color="grey">
-          <Header icon>
+        <Segment textAlign="center" inverted tertiary className="seg-header">
+          <Header icon className="seg-text">
             <Icon name="copy outline" />
             No past orders
           </Header>
           <div>
-            <Button onClick={() => history.push("/")} color="orange">
+            <Button onClick={() => history.push("/")} className="seg-btn">
               View Products
             </Button>
           </div>

@@ -4,10 +4,11 @@ import {
   UPDATE_CART,
   CLEAR_CART,
   CHECKOUT,
+  LOGOUT
 } from "../actions/types";
 const initialState = {
   loading: true,
-  products: [],
+  products: []
 };
 
 export default (state = initialState, action) => {
@@ -19,20 +20,26 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        products: [...payload],
+        products: [...payload]
       };
     case GET_CART_FAILED:
     case CHECKOUT:
       return {
         ...state,
         loading: false,
-        products: [],
+        products: []
       };
     case CLEAR_CART:
       return {
         ...state,
         loading: true,
-        products: [],
+        products: []
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        loading: false,
+        products: []
       };
 
     default:
