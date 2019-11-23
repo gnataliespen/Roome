@@ -67,30 +67,18 @@ const Navbar = ({ auth: { isAuth, loading, user }, logout }) => {
       <Menu.Item position="right" className="browse">
         <Dropdown text="Browse products">
           <Dropdown.Menu>
+            <Dropdown.Item href="/products/?page=1&type=Tables" text="Tables" />
             <Dropdown.Item
-              href="http://localhost:3000/products/?page=1&type=Tables"
-              text="Tables"
-            />
-            <Dropdown.Item
-              href="http://localhost:3000/products/?page=1&type=HomeDecor"
+              href="/products/?page=1&type=HomeDecor"
               text="Home Decor"
             />
+            <Dropdown.Item href="/products/?page=1&type=Sofas" text="Sofas" />
+            <Dropdown.Item href="/products/?page=1&type=Chairs" text="Chairs" />
             <Dropdown.Item
-              href="http://localhost:3000/products/?page=1&type=Sofas"
-              text="Sofas"
-            />
-            <Dropdown.Item
-              href="http://localhost:3000/products/?page=1&type=Chairs"
-              text="Chairs"
-            />
-            <Dropdown.Item
-              href="http://localhost:3000/products/?page=1&type=Dressers"
+              href="/products/?page=1&type=Dressers"
               text="Dressers & Storage Drawers"
             />
-            <Dropdown.Item
-              href="http://localhost:3000/products"
-              text="All Products"
-            />
+            <Dropdown.Item href="/products" text="All Products" />
           </Dropdown.Menu>
         </Dropdown>
       </Menu.Item>

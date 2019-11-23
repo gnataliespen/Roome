@@ -12,11 +12,15 @@ const AddProductToCart = ({ isAuth, addToCart, id, loading }) => {
   return (
     <Fragment>
       {isAuth ? (
-        <Button loading={loading} color="orange" onClick={() => addToCart(id)}>
+        <Button
+          loading={loading}
+          className="seg-btn"
+          onClick={() => addToCart(id)}
+        >
           <Icon className="plus cart" /> Add to cart
         </Button>
       ) : (
-        <Button color="blue" onClick={() => history.push("/login")}>
+        <Button className="seg-btn" onClick={() => history.push("/login")}>
           <Icon className="user" /> Login to purchase
         </Button>
       )}
@@ -26,13 +30,10 @@ const AddProductToCart = ({ isAuth, addToCart, id, loading }) => {
 AddProductToCart.propTypes = {
   isAuth: PropTypes.bool,
   addToCart: PropTypes.func.isRequired,
-  loading: PropTypes.bool,
+  loading: PropTypes.bool
 };
 const mapStateToProps = state => ({
   isAuth: state.auth.isAuth,
-  loading: state.cart.loading,
+  loading: state.cart.loading
 });
-export default connect(
-  mapStateToProps,
-  { addToCart },
-)(AddProductToCart);
+export default connect(mapStateToProps, { addToCart })(AddProductToCart);
