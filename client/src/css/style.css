@@ -55,6 +55,7 @@ body {
 }
 .seg-header {
   background-color: var(--segmentBg) !important;
+  color: #59606d !important;
 }
 .seg-text {
   color: #59606d !important;

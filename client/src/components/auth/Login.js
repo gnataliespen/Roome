@@ -8,14 +8,14 @@ import {
   Form,
   Icon,
   Button,
-  Divider,
+  Divider
 } from "semantic-ui-react";
 
 import { login } from "../../redux/actions/auth";
 
 const initialUser = {
   email: "",
-  password: "",
+  password: ""
 };
 
 const Login = ({ login, auth: { isAuth, loading } }) => {
@@ -37,7 +37,12 @@ const Login = ({ login, auth: { isAuth, loading } }) => {
 
   return (
     <Fragment>
-      <Message attached icon="privacy" header="Welcome Back!" color="blue" />
+      <Message
+        attached
+        icon="privacy"
+        header="Welcome Back!"
+        className="seg-btn"
+      />
       <Divider className="hidden" />
       <Form loading={loading} onSubmit={handleSubmit}>
         <Segment>
@@ -64,7 +69,13 @@ const Login = ({ login, auth: { isAuth, loading } }) => {
             onChange={handleChange}
             required
           />
-          <Button icon="sign in" type="submit" color="orange" content="Login" />
+          <Button
+            icon="sign in"
+            type="submit"
+            color="orange"
+            content="Login"
+            className="seg-header"
+          />
         </Segment>
       </Form>
       <Message attached="bottom" warning>
@@ -77,13 +88,10 @@ const Login = ({ login, auth: { isAuth, loading } }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
+  auth: state.auth
 });
-export default connect(
-  mapStateToProps,
-  { login },
-)(Login);
+export default connect(mapStateToProps, { login })(Login);

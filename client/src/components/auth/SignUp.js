@@ -8,7 +8,7 @@ import {
   Form,
   Icon,
   Button,
-  Divider,
+  Divider
 } from "semantic-ui-react";
 
 import { register } from "../../redux/actions/auth";
@@ -18,7 +18,7 @@ const initialUser = {
   name: "",
   email: "",
   password: "",
-  conPass: "",
+  conPass: ""
 };
 
 const SignUp = ({ auth: { isAuth, loading }, register, setAlert }) => {
@@ -50,7 +50,7 @@ const SignUp = ({ auth: { isAuth, loading }, register, setAlert }) => {
         attached
         icon="settings"
         header="Create a new account"
-        color="teal"
+        className="seg-btn"
       />
       <Divider className="hidden" />
       <Form loading={loading} onSubmit={handleSubmit}>
@@ -106,7 +106,12 @@ const SignUp = ({ auth: { isAuth, loading }, register, setAlert }) => {
             minLength={6}
             required
           />
-          <Button icon="signup" type="submit" color="orange" content="Signup" />
+          <Button
+            icon="signup"
+            type="submit"
+            content="Signup"
+            className="seg-header"
+          />
         </Segment>
       </Form>
       <Message attached="bottom" warning>
@@ -119,14 +124,11 @@ const SignUp = ({ auth: { isAuth, loading }, register, setAlert }) => {
 SignUp.propTypes = {
   register: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
+  auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { register, setAlert },
-)(SignUp);
+export default connect(mapStateToProps, { register, setAlert })(SignUp);

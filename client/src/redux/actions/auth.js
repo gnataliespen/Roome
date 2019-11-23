@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 
 import api from "../../util/apiConnection";
 import { setAlert } from "./alert";
-import { getCart, clearCart } from "./cart";
+import { getCart } from "./cart";
 import setAuthToken from "../../util/setAuthToken";
 import {
   REGISTER_FAIL,
@@ -103,7 +103,6 @@ export const logout = () => dispatch => {
   dispatch({
     type: LOGOUT
   });
-  dispatch(clearCart());
   dispatch(setAlert("Signed out", "yellow"));
 };
 //Clear user state
