@@ -8,7 +8,8 @@
 :root {
   --bodyBg: #fafafa;
   --menuBg: #c4c1e0;
-  --progressBar: #ffc7c7;
+  --segmentBg: #ffe9e3;
+  --btnBg: #7c73e6;
 }
 a {
   text-decoration: none !important;
@@ -17,6 +18,7 @@ a {
 body {
   font-family: "futura_md_btmedium";
   background: var(--bodyBg);
+  box-sizing: border-box;
 }
 .ui.text.container,
 .ui.header,
@@ -37,6 +39,7 @@ body {
 #main {
   width: 60%;
   margin: 0 auto;
+  padding-top: 5vh;
 }
 #landing {
   width: 90%;
@@ -50,9 +53,16 @@ body {
 .right.item.browse {
   padding-right: 10vw;
 }
-.ui.secondary.segment {
-  background-color: #ffe9e3;
+.seg-header {
+  background-color: var(--segmentBg) !important;
 }
-.landing-text {
+.seg-text {
   color: #59606d !important;
+}
+.seg-btn {
+  background-color: var(--btnBg) !important;
+  color: white !important;
+}
+.alert {
+  margin: 10px !important;
 }

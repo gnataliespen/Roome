@@ -1,13 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Segment, Header, Icon, Card } from "semantic-ui-react";
 const Landing = () => {
   return (
-    <div id="landing">
-      <Segment secondary>
-        <Header textAlign="center" as="h1" icon className="landing-text">
-          <Icon name="home" className="landing-text" />
+    <Fragment>
+      <Segment secondary className="seg-header">
+        <Header textAlign="center" as="h1" icon className="seg-text">
+          <Icon name="home" className="seg-text" />
           Roome
-          <Header.Subheader className="landing-text">
+          <Header.Subheader className="seg-text">
             At Roome we offer a carefully crafted selection of home goods,
             furniture, and lighting.
           </Header.Subheader>
@@ -46,7 +46,7 @@ const Landing = () => {
           href="http://localhost:3000/products/?page=1&type=Dressers"
         />
       </Card.Group>
-    </div>
+    </Fragment>
   );
 };
 

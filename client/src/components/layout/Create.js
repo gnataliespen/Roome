@@ -12,7 +12,7 @@ import {
   Icon
 } from "semantic-ui-react";
 
-import { uploadImg, clearUpload } from "../../redux/actions/upload";
+import { uploadImg } from "../../redux/actions/upload";
 import { createProduct } from "../../redux/actions/product";
 
 const initialForm = {
@@ -27,7 +27,6 @@ const initialForm = {
 const Create = ({
   createProduct,
   uploadImg,
-  clearUpload,
   product: { loading: productLoading, product },
   upload: { loading: uploadLoading, mediaUrl }
 }) => {
@@ -138,7 +137,6 @@ const Create = ({
 Create.propTypes = {
   uploadImg: PropTypes.func.isRequired,
   createProduct: PropTypes.func.isRequired,
-  clearUpload: PropTypes.func.isRequired,
   upload: PropTypes.object.isRequired,
   product: PropTypes.object.isRequired
 };
@@ -150,6 +148,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   uploadImg,
-  createProduct,
-  clearUpload
+  createProduct
 })(Create);

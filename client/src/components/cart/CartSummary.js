@@ -26,7 +26,7 @@ const CartSummary = ({ products, handleCheckout }) => {
         >
           <Button
             icon="cart"
-            color="teal"
+            className="seg-btn"
             floated="right"
             content="Checkout"
             disabled={products.length === 0}
@@ -38,6 +38,6 @@ const CartSummary = ({ products, handleCheckout }) => {
 };
 CartSummary.propTypes = {
   products: PropTypes.array.isRequired,
-  handleCheckout: PropTypes.func.isRequired,
+  handleCheckout: PropTypes.func.isRequired
 };
 export default CartSummary;

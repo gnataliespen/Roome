@@ -48,7 +48,6 @@ export default (state = initialState, action) => {
     case LOGIN_FAIL:
     case LOGOUT:
       Cookies.remove("token");
-      console.log("satae");
       return {
         ...state,
         token: null,

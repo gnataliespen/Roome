@@ -28,10 +28,12 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Navbar />
-        <Alert />
-        <Switch>
+        <div id="landing">
+          <Alert />
           <Route exact path="/" component={Landing} />
-          <div id="main">
+        </div>
+        <div id="main">
+          <Switch>
             <Route exact path="/products" component={Browse} />
             <Route exact path="/product/:id" component={Product} />
             <Route exact path="/signup" component={SignUp} />
@@ -39,8 +41,8 @@ const App = () => {
             <Route exact path="/checkout" component={Cart} />
             <PrivateRoute exact path="/create" admin component={Create} />
             <PrivateRoute exact path="/account" component={Account} />
-          </div>
-        </Switch>
+          </Switch>
+        </div>
       </Router>
     </Provider>
   );

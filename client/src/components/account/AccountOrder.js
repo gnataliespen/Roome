@@ -9,7 +9,7 @@ import {
   Image,
   Button,
   Segment,
-  Icon,
+  Icon
 } from "semantic-ui-react";
 
 import formatDate from "../../util/formatDate";
@@ -17,11 +17,12 @@ import formatDate from "../../util/formatDate";
 const AccountOrder = ({ orders: { orders, loading } }) => {
   let history = useHistory();
 
+  //Create Accordian pannels
   const mapOrdersToPannels = orders => {
     return orders.map(order => ({
       key: order._id,
       title: {
-        content: <Label color="blue" content={formatDate(order.createdAt)} />,
+        content: <Label color="blue" content={formatDate(order.createdAt)} />
       },
       content: {
         content: (
@@ -62,10 +63,11 @@ const AccountOrder = ({ orders: { orders, loading } }) => {
               ))}
             </List>
           </Fragment>
-        ),
-      },
+        )
+      }
     }));
   };
+
   return (
     <Fragment>
       <Header as="h2">
@@ -96,6 +98,6 @@ const AccountOrder = ({ orders: { orders, loading } }) => {
   );
 };
 AccountOrder.propTypes = {
-  orders: PropTypes.object.isRequired,
+  orders: PropTypes.object.isRequired
 };
 export default AccountOrder;

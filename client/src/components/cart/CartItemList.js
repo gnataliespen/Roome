@@ -27,25 +27,25 @@ const CartItemList = ({ products, isAuth, removeFromCart }) => {
           floated="right"
           onClick={() => removeFromCart(p.product._id)}
         />
-      ),
+      )
     }));
   };
 
   if (products.length === 0) {
     return (
-      <Segment secondary color="teal" inverted textAlign="center">
-        <Header icon>
-          <Icon name="shopping basket"></Icon>
+      <Segment secondary inverted textAlign="center" className="seg-header">
+        <Header icon className="seg-text">
+          <Icon name="shopping basket" />
           No products in your cart.
         </Header>
         <div>
           {isAuth ? (
             <Link to="/">
-              <Button color="orange">View Products</Button>
+              <Button className="seg-btn">View Products</Button>
             </Link>
           ) : (
             <Link to="/login">
-              <Button color="blue">Login to add products</Button>
+              <Button className="seg-btn">Login to add products</Button>
             </Link>
           )}
         </div>
@@ -58,7 +58,7 @@ CartItemList.propTypes = {
   isAuth: PropTypes.bool,
   products: PropTypes.array.isRequired,
   loading: PropTypes.bool,
-  removeFromCart: PropTypes.func.isRequired,
+  removeFromCart: PropTypes.func.isRequired
 };
 
 export default CartItemList;

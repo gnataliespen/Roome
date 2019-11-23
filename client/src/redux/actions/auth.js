@@ -20,20 +20,23 @@ export const loadUser = () => async dispatch => {
   const token = Cookies.get("token");
   if (token) {
     setAuthToken(token);
-  }
-
-  try {
-    const res = await api.get("/auth");
-    dispatch({
-      type: USER_LOADED,
-      payload: res.data
-    });
-  } catch (err) {
+    try {
+      const res = await api.get("/auth");
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data
+      });
+      dispatch(getCart());
+    } catch (err) {
+      dispatch({
+        type: AUTH_ERROR
+      });
+    }
+  } else {
     dispatch({
       type: AUTH_ERROR
     });
   }
-  dispatch(getCart());
 };
 
 //Register User
@@ -101,6 +104,7 @@ export const logout = () => dispatch => {
     type: LOGOUT
   });
   dispatch(clearCart());
+  dispatch(setAlert("Signed out", "yellow"));
 };
 //Clear user state
 export const clearUser = () => dispatch => {

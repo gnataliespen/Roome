@@ -5,7 +5,7 @@ import { Segment, Loader } from "semantic-ui-react";
 
 import AccountHeader from "./AccountHeader";
 import AccountOrder from "./AccountOrder";
-import { getOrders, clearOrders } from "../../redux/actions/orders";
+import { getOrders } from "../../redux/actions/orders";
 
 const Account = ({ user, orders, getOrders }) => {
   useEffect(() => {
@@ -26,14 +26,11 @@ Account.propTypes = {
   user: PropTypes.object.isRequired,
   orders: PropTypes.object.isRequired,
   getOrders: PropTypes.func.isRequired,
-  clearOrders: PropTypes.func.isRequired,
+  clearOrders: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   user: state.auth.user,
-  orders: state.orders,
+  orders: state.orders
 });
 
-export default connect(
-  mapStateToProps,
-  { getOrders, clearOrders },
-)(Account);
+export default connect(mapStateToProps, { getOrders })(Account);
