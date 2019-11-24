@@ -1,6 +1,7 @@
 # Roome
 
-Fully functional online store that provides all the basic features of any ecommerce platform including order tacking, cart managment, secure checkout, and more.
+Fully functional online store that provides all the basic features of any ecommerce platform including order tracking, cart management, secure checkout, and more.
+
 
 ## Getting Started
 After you clone this repo to your desktop, run npm install in the root and client directories to install all dependencies. 
