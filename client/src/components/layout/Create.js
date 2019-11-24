@@ -21,6 +21,7 @@ const initialForm = {
   media: "",
   description: "",
   productType: "",
+  //to check if the form has been submitted
   created: false
 };
 
@@ -47,8 +48,8 @@ const Create = ({
     e.preventDefault();
     const { name, price, description, productType } = form;
     const payload = { name, price, description, mediaUrl, productType };
-    await createProduct(payload);
     setForm({ created: true });
+    await createProduct(payload);
   };
 
   const getImgUrl = async file => {
@@ -70,7 +71,7 @@ const Create = ({
         <Icon name="add" color="orange" /> Create new product
       </Header>
       <Form
-        loading={productLoading || uploadLoading}
+        loading={(productLoading && form.created) || uploadLoading}
         onSubmit={e => handleSubmit(e)}
       >
         <Form.Group widths="equal">
